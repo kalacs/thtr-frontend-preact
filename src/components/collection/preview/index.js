@@ -27,7 +27,6 @@ const CollectionPreview = ({
     dispatch(requestCollectionData({ id, action, params }));
   }, [action, id, dispatch, params]);
   const rowIsSelected = selectedRow === index;
-
   return (
     <Fragment>
       <div class={styles["collection-preview"]}>

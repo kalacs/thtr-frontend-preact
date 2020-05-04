@@ -1,6 +1,48 @@
 .collection-item {
   position: relative;
 
+  @media screen and (min-width: 800px) {
+    &.selected {
+      .collection-item {
+        transform: translateX(-25%);
+      }
+    }
+
+    &.selected ~ .collection-item {
+      transform: translateX(25%);
+    }
+
+    &.selected:first-child ~ .collection-item {
+      transform: translateX(50%);
+    }
+
+    &.selected:last-child ~ .collection-item {
+      transform: translateX(-50%);
+    }
+
+    & {
+      transition: transform 300ms ease 100ms;
+    }
+
+    &:first-child {
+      transform-origin: left;
+    }
+
+    &:last-child {
+      transform-origin: right;
+    }
+
+    &.selected {
+      transform: scale(1.5);
+    }
+    &.selected:first-child {
+      transform: scale(1.5);
+    }
+    &.selected:last-child {
+      transform: scale(1.25);
+    }
+  }
+
   &__movie-image {
     width: 300px;
     z-index: 1;
