@@ -7,7 +7,7 @@ import Header from "./header";
 
 // Code-splitting is automated for routes
 import Movies from "../routes/movies";
-
+import MovieItemPage from "../routes/movie";
 // Must be the first import
 if (process.env.NODE_ENV === "development") {
   // Must use require here as import statements are only allowed
@@ -32,6 +32,7 @@ export default class App extends Component {
           <Router onChange={this.handleRoute}>
             <Movies path="/" />
             <Movies path="/movies" />
+            <MovieItemPage path="/movies/:id" />
           </Router>
         </Provider>
       </div>

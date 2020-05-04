@@ -15,11 +15,10 @@ const CollectionItem = memo(
   ({ item, navRef, index, parentIsSelected, selectedColumn }) => {
     const { title, overview, backdrop_path, name } = item;
     const para = truncate(overview, 155, " ..read more");
-
     return (
       <div
         class={classNames(styles["collection-item"], {
-          selected: parentIsSelected && index === selectedColumn,
+          [styles["selected"]]: parentIsSelected && index === selectedColumn,
         })}
         ref={navRef}
       >

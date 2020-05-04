@@ -19,22 +19,21 @@ const Header = ({ currentRoute = "", hidden = true }) => {
   return (
     <div class={styles.header}>
       <div class={styles["header__logo-box"]}>
-        <img src={Logo} alt="logo" class={styles.header__logo} />
+        <a href="/">
+          <img src={Logo} alt="logo" class={styles.header__logo} />
+        </a>
       </div>
-
       <div class={styles.header__options}>
         <div class={styles["header__options-primary"]}>
-          <Link class={styles.header__option} to="/movies">
+          <a class={styles.header__option} href="/movies">
             Movies
-          </Link>
-
-          <Link class={styles.header__option} to="/tvshows">
+          </a>
+          <a class={styles.header__option} href="/tvshows">
             TV Shows
-          </Link>
-
-          <Link class={styles.header__option} to="/mylist">
+          </a>
+          <a class={styles.header__option} href="/mylist">
             My List
-          </Link>
+          </a>
         </div>
 
         <div class={styles.header__searchbar}> </div>

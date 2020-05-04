@@ -7,19 +7,19 @@ import CollectionGrid from "../../components/collection/grid";
 import Spinner from "../../components/spinner";
 import { getCollections } from "../../store/collections";
 import KeyboardNavigation from "../../components/keyboard-navigation";
-//import { scrollToRow } from "../../Utils/ScrollTo";
+import { scrollToRow } from "../../utils";
 import { setSelectedRow, getSelectedMovie } from "../../store/ui";
-//import { useKeyPress } from "../../Hooks/useKeyPress";
-//import { useHistory } from "react-router-dom";
+import { useKeyPress } from "../../hooks/key-press";
+import { route } from "preact-router";
 
 const CollectionPreview = lazy(() =>
   import("../../components/collection/preview")
 );
 
 const noop = () => {};
-//const handleEnter = (selectedMovie, history) => {
-//  history.push(`/movies/${selectedMovie.id}`, { item: selectedMovie });
-//};
+const handleEnter = (selectedMovie) => {
+  route(`/movies/${selectedMovie.id}`, { item: selectedMovie });
+};
 const CollectionLayout = function (props) {
   const { collection, navRef, index } = props;
   const { layout: type, action, id } = collection;
@@ -48,7 +48,7 @@ const Movies = memo(({ collections, rowIndex, setRowIndex, dispatch }) => {
         previousKey="ArrowUp"
         enabled
         onChange={({ index, ref }) => {
-          //          scrollToRow(ref);
+          scrollToRow(ref);
           setRowIndex(index);
           dispatch(setSelectedRow(index));
         }}
@@ -74,9 +74,8 @@ const mapStateToProps = (state) => ({
 });
 const MovieContainer = connect(mapStateToProps)((props) => {
   const [rowIndex, setRowIndex] = useState(0);
-  //  const history = useHistory();
-  //  const bounded = handleEnter.bind(null, props.selectedMovie, history);
-  //  useKeyPress("Enter", noop, bounded);
+  const bounded = handleEnter.bind(null, props.selectedMovie);
+  useKeyPress("Enter", noop, bounded);
 
   return <Movies {...props} rowIndex={rowIndex} setRowIndex={setRowIndex} />;
 });
