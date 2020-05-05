@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import classNames from "classnames";
 
 const CollectionItem = memo(
-  ({ item, navRef, index, parentIsSelected, selectedColumn }) => {
+  ({ item, index, parentIsSelected, selectedColumn }) => {
     const { title, overview, backdrop_path, name } = item;
     const para = truncate(overview, 155, " ..read more");
     return (
@@ -20,7 +20,7 @@ const CollectionItem = memo(
         class={classNames(styles["collection-item"], {
           [styles["selected"]]: parentIsSelected && index === selectedColumn,
         })}
-        ref={navRef}
+        data-focus-column={index}
       >
         <Link
           to={{

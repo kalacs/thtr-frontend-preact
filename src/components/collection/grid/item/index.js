@@ -6,10 +6,10 @@ import AddToList from "../../../add-to-list";
 import { getSelectedColumn, setSelectedMovie } from "../../../../store/ui";
 import { connect } from "react-redux";
 
-const CollectionGridItem = memo(({ item, navRef }) => {
+const CollectionGridItem = memo(({ item, index }) => {
   const { title, overview, backdrop_path, poster_path, name } = item;
   return (
-    <div class={styles["grid-item"]} ref={navRef}>
+    <div class={styles["grid-item"]} data-focus-column={index}>
       <img
         src={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${backdrop_path}`}
         alt="movie"

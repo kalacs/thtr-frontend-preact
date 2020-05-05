@@ -1,4 +1,4 @@
-import { all, takeEvery, put, call } from "redux-saga/effects";
+import { all, takeEvery, put, call, select } from "redux-saga/effects";
 import {
   requestCollectionData,
   collectionDataSuccess,
@@ -12,6 +12,7 @@ import {
   additionalDataFailed,
 } from "./movie";
 import * as movieService from "../services/movie-service";
+import { nextRow, previousRow, getSelectedRow, getSelectedColumn } from "./ui";
 
 function* makeRequest({ payload: { action, id, params } }) {
   try {
@@ -49,8 +50,19 @@ function* onAdditionalRequest() {
   yield takeEvery(type, makeAdditionalRequest);
 }
 
+function* onChangeRow() {
+  yield takeEvery(nextRow().type, makeScroll);
+  yield takeEvery(previousRow().type, makeScroll);
+}
+
+function* makeScroll(action) {
+  const row = yield select(getSelectedRow);
+  const column = yield select(getSelectedColumn);
+  console.log("SCROLL ACTION", { row, column });
+  yield put({ type: "SCROLL_TO_ROW" });
+}
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
-  yield all([onRequest(), onAdditionalRequest()]);
+  yield all([onRequest(), onAdditionalRequest(), onChangeRow()]);
 }

@@ -4,13 +4,8 @@ import styles from "./style.scss";
 import CollectionItem from "./item";
 import { connect, useDispatch } from "react-redux";
 import { requestCollectionData } from "../../../store/collections";
-import KeyboardNavigation from "../../keyboard-navigation";
 
-import {
-  getSelectedRow,
-  setSelectedColumn,
-  getSelectedColumn,
-} from "../../../store/ui";
+import { getSelectedRow, getSelectedColumn } from "../../../store/ui";
 
 const CollectionPreview = ({
   title,
@@ -20,7 +15,6 @@ const CollectionPreview = ({
   params,
   selectedRow,
   index,
-  selectedColumn,
 }) => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -37,27 +31,17 @@ const CollectionPreview = ({
         </h1>
         <div class={styles["collection-preview__box"]}>
           <div class={styles["collection-preview__inner"]}>
-            <KeyboardNavigation
-              nextKey="ArrowRight"
-              previousKey="ArrowLeft"
-              enabled={rowIsSelected}
-              onChange={({ index, ref }) => {
-                dispatch(setSelectedColumn(index));
-              }}
-              currentRef={selectedColumn}
-            >
-              {data
-                ? data.map((item, itemIndex) => (
-                    <CollectionItem
-                      key={item.id}
-                      item={item}
-                      movies
-                      index={itemIndex}
-                      parentIsSelected={rowIsSelected}
-                    />
-                  ))
-                : null}
-            </KeyboardNavigation>
+            {data
+              ? data.map((item, itemIndex) => (
+                  <CollectionItem
+                    key={item.id}
+                    item={item}
+                    movies
+                    index={itemIndex}
+                    parentIsSelected={rowIsSelected}
+                  />
+                ))
+              : null}
           </div>
         </div>
       </div>

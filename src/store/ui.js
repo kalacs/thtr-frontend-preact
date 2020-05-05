@@ -2,7 +2,15 @@ import autodux from "autodux";
 
 export const {
   reducer,
-  actions: { setSelectedRow, setSelectedColumn, setSelectedMovie },
+  actions: {
+    setSelectedRow,
+    setSelectedColumn,
+    setSelectedMovie,
+    nextRow,
+    nextColumn,
+    previousColumn,
+    previousRow,
+  },
   selectors: { getSelectedRow, getSelectedColumn, getSelectedMovie },
 } = autodux({
   // the slice of state your reducer controls
@@ -27,6 +35,22 @@ export const {
     setSelectedMovie: (state, item) => ({
       ...state,
       selectedMovie: item,
+    }),
+    nextRow: (state) => ({
+      ...state,
+      selectedRow: state.selectedRow + 1,
+    }),
+    previousRow: (state) => ({
+      ...state,
+      selectedRow: state.selectedRow - 1,
+    }),
+    nextColumn: (state) => ({
+      ...state,
+      selectedColumn: state.selectedColumn + 1,
+    }),
+    previousColumn: (state) => ({
+      ...state,
+      selectedColumn: state.selectedColumn - 1,
     }),
   },
 });
