@@ -16,8 +16,10 @@ const CollectionGrid = ({
   dispatch,
 }) => {
   useEffect(() => {
-    dispatch(requestCollectionData({ id, action }));
-  }, [dispatch, id, action]);
+    if (!data.length) {
+      dispatch(requestCollectionData({ id, action }));
+    }
+  }, [dispatch, id, action, data]);
   const [gridIndex, setGridIndex] = useState(0);
   const rowIsSelected = selectedRow === index;
 

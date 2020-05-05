@@ -24,8 +24,10 @@ const CollectionPreview = ({
 }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(requestCollectionData({ id, action, params }));
-  }, [action, id, dispatch, params]);
+    if (!data.length) {
+      dispatch(requestCollectionData({ id, action, params }));
+    }
+  }, [action, id, dispatch, params, data]);
   const rowIsSelected = selectedRow === index;
   return (
     <Fragment>

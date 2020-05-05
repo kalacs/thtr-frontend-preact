@@ -10,16 +10,30 @@ export function useKeyPress(
 
   useEffect(() => {
     // If pressed key is our target key then set to true
-    function downHandler({ key }) {
-      if (key === targetKey) {
+    const downHandler = ({ key, keyCode, which }) => {
+      let keycode;
+      if (window.event) {
+        keycode = keyCode;
+      } else if (which) {
+        keycode = which;
+      }
+
+      if (key === targetKey || keycode === targetKey) {
         setKeyPressed(true);
         onPressDown();
       }
-    }
+    };
 
     // If released key is our target key then set to false
-    const upHandler = ({ key }) => {
-      if (key === targetKey) {
+    const upHandler = ({ key, keyCode, which }) => {
+      let keycode;
+      if (window.event) {
+        keycode = keyCode;
+      } else if (which) {
+        keycode = which;
+      }
+
+      if (key === targetKey || keycode === targetKey) {
         setKeyPressed(false);
         onPressUp();
       }
