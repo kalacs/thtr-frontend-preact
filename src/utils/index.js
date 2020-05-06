@@ -11,11 +11,14 @@ export const truncate = function (str, length, ending) {
   return str;
 };
 
-export const scrollToRow = (domNode) => {
-  if (domNode && domNode.current)
-    domNode.current.scrollIntoView({ behavior: "smooth", block: "start" });
+export const scrollRow = (domNode) => {
+  if (domNode) domNode.scrollIntoView({ behavior: "smooth", block: "start" });
 };
-export const scrollToCell = (domNode) => {
-  if (domNode && domNode.current)
-    domNode.current.scrollIntoView({ behavior: "smooth", inline: "start" });
+export const scrollColumn = (domNode) => {
+  if (domNode) domNode.scrollIntoView({ behavior: "smooth", inline: "start" });
 };
+
+export const getDomNode = (row, column) =>
+  document.querySelector(
+    `div[data-focus-row='${row}'] div[data-focus-column='${column}']`
+  );

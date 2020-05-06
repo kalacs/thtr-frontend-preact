@@ -12,7 +12,7 @@
       transform: translateX(25%);
     }
 
-    &.selected:first-child ~ .collection-item {
+    &.selected:nth-child(5n + 1) ~ .collection-item {
       transform: translateX(50%);
     }
 
@@ -24,7 +24,7 @@
       transition: transform 300ms ease 100ms;
     }
 
-    &:first-child {
+    &:nth-child(5n + 1) {
       transform-origin: left;
     }
 
@@ -35,7 +35,7 @@
     &.selected {
       transform: scale(1.5);
     }
-    &.selected:first-child {
+    &.selected:nth-child(5n + 1) {
       transform: scale(1.5);
     }
     &.selected:last-child {

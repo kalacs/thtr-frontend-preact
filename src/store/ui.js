@@ -10,6 +10,8 @@ export const {
     nextColumn,
     previousColumn,
     previousRow,
+    scrollToColumn,
+    scrollToRow,
   },
   selectors: { getSelectedRow, getSelectedColumn, getSelectedMovie },
 } = autodux({
@@ -52,6 +54,8 @@ export const {
       ...state,
       selectedColumn: state.selectedColumn - 1,
     }),
+    scrollToRow: (state, { row, column, type = "vertical" }) => state,
+    scrollToColumn: (state, { row, column, type = "horizontal" }) => state,
   },
 });
 export default reducer;

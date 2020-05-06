@@ -4,7 +4,6 @@ import { IMAGE_BASE_URL, GRID_IMAGE_SIZE } from "../../../../config";
 import styles from "./style.scss";
 import { truncate } from "../../../../utils/index";
 import AddToList from "../../../../components/add-to-list";
-import { Link } from "preact-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilm } from "@fortawesome/free-solid-svg-icons";
 import { getSelectedColumn, setSelectedMovie } from "../../../../store/ui";
@@ -22,36 +21,29 @@ const CollectionItem = memo(
         })}
         data-focus-column={index}
       >
-        <Link
-          to={{
-            pathname: `/movies/${item.id}`,
-            state: { item },
-          }}
-        >
-          <div class={styles["collection-item__movie-image"]}>
-            {backdrop_path ? (
-              <img
-                src={`${IMAGE_BASE_URL}${GRID_IMAGE_SIZE}${backdrop_path}`}
-                alt="movie"
-                class={styles["collection-item__movie-image"]}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faFilm}
-                class={styles["collection-item__icon"]}
-              />
-            )}
+        <div class={styles["collection-item__movie-image"]}>
+          {backdrop_path ? (
+            <img
+              src={`${IMAGE_BASE_URL}${GRID_IMAGE_SIZE}${backdrop_path}`}
+              alt="movie"
+              class={styles["collection-item__movie-image"]}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faFilm}
+              class={styles["collection-item__icon"]}
+            />
+          )}
 
-            <div class={styles["collection-item__text"]}>
-              <h1 class={styles["collection-item__title"]}>{title}</h1>
-              <h2 class={styles["collection-item__title"]}>{name}</h2>
-              <span class={styles["collection-item__overview"]}>{para}</span>
-            </div>
+          <div class={styles["collection-item__text"]}>
+            <h1 class={styles["collection-item__title"]}>{title}</h1>
+            <h2 class={styles["collection-item__title"]}>{name}</h2>
+            <span class={styles["collection-item__overview"]}>{para}</span>
           </div>
-          <div class={styles["collection-item__addtolist"]}>
-            <AddToList item={item} />
-          </div>
-        </Link>
+        </div>
+        <div class={styles["collection-item__addtolist"]}>
+          <AddToList item={item} />
+        </div>
       </div>
     );
   }
