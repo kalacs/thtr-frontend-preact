@@ -1,4 +1,4 @@
-import { all, takeEvery, put, call, select } from "redux-saga/effects";
+import { all, takeEvery, put, call, select, delay } from "redux-saga/effects";
 import {
   requestCollectionData,
   collectionDataSuccess,
@@ -21,13 +21,16 @@ import {
   previousColumn,
   scrollToRow,
   scrollToColumn,
+  setSelectedMovie,
 } from "./ui";
 import {
   scrollRow,
   scrollColumn,
   getDomNode,
   removeSelectedClass,
+  addSelectedClass,
 } from "../utils";
+const GRID_ROW = 0;
 
 function* makeRequest({ payload: { action, id, params } }) {
   try {
@@ -66,14 +69,36 @@ function* onAdditionalRequest() {
 }
 
 function* onChangeRow() {
-  yield takeEvery(nextRow().type, makeVerticalScrollRequest);
-  yield takeEvery(previousRow().type, makeVerticalScrollRequest);
+  yield takeEvery(nextRow().type, makeScrollDownRequest);
+  yield takeEvery(previousRow().type, makeScrollUpRequest);
 }
 
-function* makeVerticalScrollRequest() {
+function* makeScrollDownRequest() {
   const row = yield select(getSelectedRow);
   const column = yield select(getSelectedColumn);
+
+  if (row - 1 !== GRID_ROW) {
+    yield call(removeSelectedClass, row - 1);
+  }
+
   yield put(scrollToRow({ row, column }));
+
+  if (row !== GRID_ROW) {
+    yield delay(100);
+    yield call(addSelectedClass, row, column);
+  }
+}
+function* makeScrollUpRequest() {
+  const row = yield select(getSelectedRow);
+  const column = yield select(getSelectedColumn);
+
+  yield call(removeSelectedClass, row + 1);
+  yield put(scrollToRow({ row, column }));
+
+  if (row !== GRID_ROW) {
+    yield delay(100);
+    yield call(addSelectedClass, row, column);
+  }
 }
 
 function* onChangeColumn() {
@@ -107,7 +132,6 @@ function* onHorizontalScrollRequest() {
 }
 
 function* doScrollHorizontal({ payload: { row, column, direction } }) {
-  const GRID_ROW = 0;
   const PREVIEW_ITEM_COUNT = 5;
   const isForward = direction > 0;
   const isBackward = !isForward;
@@ -125,17 +149,11 @@ function* doScrollHorizontal({ payload: { row, column, direction } }) {
       column + 1,
       PREVIEW_ITEM_COUNT
     );
-    console.log({
-      isForward,
-      isBackward,
-      isCurrentItemIsFirst,
-      isPreviousItemIsFirst,
-      column,
-    });
+    yield call(removeSelectedClass, row);
+
     if (isForward && isCurrentItemIsFirst) {
       // scroll to current column
       node = getDomNode(row, column);
-      yield call(removeSelectedClass, row);
     }
 
     if (isBackward && isPreviousItemIsFirst) {
@@ -147,8 +165,11 @@ function* doScrollHorizontal({ payload: { row, column, direction } }) {
   }
 
   if (node) {
+    yield delay(400);
     yield call(scrollColumn, node);
+    yield delay(400);
   }
+  yield call(addSelectedClass, row, column);
 }
 
 // notice how we now only export the rootSaga

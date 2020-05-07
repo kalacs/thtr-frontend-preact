@@ -10,9 +10,11 @@ import { getSelectedColumn, setSelectedMovie } from "../../../../store/ui";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
-const CollectionItem = memo(({ item, index }) => {
+const CollectionItem = memo((props) => {
+  const { item, index } = props;
   const { title, overview, backdrop_path, name } = item;
   const para = truncate(overview, 155, " ..read more");
+  console.log("ITEM RENDER");
   return (
     <div
       class={classNames(styles["collection-item"])}
@@ -49,14 +51,15 @@ const mapStateToProps = (state, { parentIsSelected }) => ({
   selectedColumn: parentIsSelected ? getSelectedColumn(state) : null,
 });
 
-const CollectionItemContainer = connect(mapStateToProps)((props) => {
-  const { parentIsSelected, index, selectedColumn, item, dispatch } = props;
-  useEffect(() => {
-    if (parentIsSelected && index === selectedColumn) {
-      dispatch(setSelectedMovie(item));
-    }
-  }, [dispatch, parentIsSelected, index, selectedColumn, item]);
-  return <CollectionItem {...props} />;
-});
+const CollectionItemContainer = connect(mapStateToProps)(
+  ({ parentIsSelected, index, selectedColumn, item, dispatch }) => {
+    useEffect(() => {
+      if (parentIsSelected && index === selectedColumn) {
+        dispatch(setSelectedMovie(item));
+      }
+    }, [dispatch, parentIsSelected, index, selectedColumn, item]);
+    return <CollectionItem index={index} item={item} />;
+  }
+);
 
 export default CollectionItemContainer;

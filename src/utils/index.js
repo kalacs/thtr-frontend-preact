@@ -1,3 +1,5 @@
+import styles from "../components/collection/preview/item/style.scss";
+
 export const truncate = function (str, length, ending) {
   if (length == null) {
     length = 150;
@@ -27,9 +29,21 @@ export const removeSelectedClass = (row) => {
   document
     .querySelectorAll(`div[data-focus-row='${row}'] div[data-focus-column]`)
     .forEach((domNode) => {
-      const classes = domNode.classList;
-      const [, lastClass] = classes.values();
-      console.log("LASTCALSS", [...classes.values()]);
-      domNode.classList.remove(lastClass);
+      const classList = domNode.classList;
+      const classes = Array.from(classList.values());
+
+      if (classes.length > 1) {
+        domNode.classList.remove(classes.pop());
+      }
     });
+};
+
+export const addSelectedClass = (row, column) => {
+  console.log(styles);
+  document
+    .querySelector(
+      `div[data-focus-row='${row}'] div[data-focus-column='${column}']`
+    )
+    .classList.add(styles.selected);
+  return true;
 };

@@ -9,7 +9,7 @@
     }
 
     &.selected ~ .collection-item {
-      transform: translateX(25%);
+      transform: translateX(-20%);
     }
 
     &.selected:nth-child(5n + 1) ~ .collection-item {
@@ -33,13 +33,18 @@
     }
 
     &.selected {
-      transform: scale(1.5);
+      transform: scale(1.5) translateX(-8%);
+      z-index: 1;
     }
     &.selected:nth-child(5n + 1) {
       transform: scale(1.5);
     }
     &.selected:last-child {
       transform: scale(1.25);
+    }
+
+    &.selected:nth-child(5n) {
+      transform: scale(1.5) translateX(-30%);
     }
   }
 
