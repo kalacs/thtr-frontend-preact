@@ -22,3 +22,14 @@ export const getDomNode = (row, column) =>
   document.querySelector(
     `div[data-focus-row='${row}'] div[data-focus-column='${column}']`
   );
+
+export const removeSelectedClass = (row) => {
+  document
+    .querySelectorAll(`div[data-focus-row='${row}'] div[data-focus-column]`)
+    .forEach((domNode) => {
+      const classes = domNode.classList;
+      const [, lastClass] = classes.values();
+      console.log("LASTCALSS", [...classes.values()]);
+      domNode.classList.remove(lastClass);
+    });
+};

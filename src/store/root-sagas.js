@@ -22,7 +22,12 @@ import {
   scrollToRow,
   scrollToColumn,
 } from "./ui";
-import { scrollRow, scrollColumn, getDomNode } from "../utils";
+import {
+  scrollRow,
+  scrollColumn,
+  getDomNode,
+  removeSelectedClass,
+} from "../utils";
 
 function* makeRequest({ payload: { action, id, params } }) {
   try {
@@ -130,6 +135,7 @@ function* doScrollHorizontal({ payload: { row, column, direction } }) {
     if (isForward && isCurrentItemIsFirst) {
       // scroll to current column
       node = getDomNode(row, column);
+      yield call(removeSelectedClass, row);
     }
 
     if (isBackward && isPreviousItemIsFirst) {
