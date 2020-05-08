@@ -1,10 +1,10 @@
 import autodux from "autodux";
+import { INITIAL_STATE } from "./collections";
 
 export const {
   reducer,
   actions: {
     setSelectedRow,
-    setSelectedColumn,
     setSelectedMovie,
     nextRow,
     nextColumn,
@@ -20,19 +20,15 @@ export const {
 
   // The initial value of your reducer state
   initial: {
-    selectedRow: 0,
-    selectedColumn: 0,
+    currentRow: 0,
+    itemPositions: INITIAL_STATE.map(() => 0),
     selectedMovie: null,
   },
 
   actions: {
     setSelectedRow: (state, row) => ({
       ...state,
-      selectedRow: row,
-    }),
-    setSelectedColumn: (state, column) => ({
-      ...state,
-      selectedColumn: column,
+      currentRow: row,
     }),
     setSelectedMovie: (state, item) => ({
       ...state,
@@ -40,22 +36,36 @@ export const {
     }),
     nextRow: (state) => ({
       ...state,
-      selectedRow: state.selectedRow + 1,
+      currentRow: state.currentRow + 1,
     }),
     previousRow: (state) => ({
       ...state,
-      selectedRow: state.selectedRow - 1,
+      currentRow: state.currentRow - 1,
     }),
-    nextColumn: (state) => ({
-      ...state,
-      selectedColumn: state.selectedColumn + 1,
-    }),
-    previousColumn: (state) => ({
-      ...state,
-      selectedColumn: state.selectedColumn - 1,
-    }),
+    nextColumn: (state) => {
+      const newItemPositions = state.itemPositions.slice();
+      newItemPositions[state.currentRow] =
+        newItemPositions[state.currentRow] + 1;
+      return {
+        ...state,
+        itemPositions: newItemPositions,
+      };
+    },
+    previousColumn: (state) => {
+      const newItemPositions = state.itemPositions.slice();
+      newItemPositions[state.currentRow] =
+        newItemPositions[state.currentRow] - 1;
+      return {
+        ...state,
+        itemPositions: newItemPositions,
+      };
+    },
     scrollToRow: (state, { row, column, type = "vertical" }) => state,
     scrollToColumn: (state, { row, column, type = "horizontal" }) => state,
+  },
+  selectors: {
+    getSelectedColumn: (state) => state.itemPositions[state.currentRow],
+    getSelectedRow: ({ currentRow }) => currentRow,
   },
 });
 export default reducer;

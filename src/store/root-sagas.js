@@ -21,7 +21,6 @@ import {
   previousColumn,
   scrollToRow,
   scrollToColumn,
-  setSelectedMovie,
 } from "./ui";
 import {
   scrollRow,
@@ -75,7 +74,7 @@ function* onChangeRow() {
 
 function* makeScrollDownRequest() {
   const row = yield select(getSelectedRow);
-  const column = yield select(getSelectedColumn);
+  const column = yield select(getSelectedColumn, row);
 
   if (row - 1 !== GRID_ROW) {
     yield call(removeSelectedClass, row - 1);

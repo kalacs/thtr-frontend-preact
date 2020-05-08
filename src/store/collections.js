@@ -1,6 +1,6 @@
 import autodux from "autodux";
 
-const INITIAL_STATE = [
+export const INITIAL_STATE = [
   {
     id: 1,
     title: "Újdonságok",

@@ -39,7 +39,6 @@ export const removeSelectedClass = (row) => {
 };
 
 export const addSelectedClass = (row, column) => {
-  console.log(styles);
   document
     .querySelector(
       `div[data-focus-row='${row}'] div[data-focus-column='${column}']`

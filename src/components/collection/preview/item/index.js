@@ -14,7 +14,7 @@ const CollectionItem = memo((props) => {
   const { item, index } = props;
   const { title, overview, backdrop_path, name } = item;
   const para = truncate(overview, 155, " ..read more");
-  console.log("ITEM RENDER");
+
   return (
     <div
       class={classNames(styles["collection-item"])}
