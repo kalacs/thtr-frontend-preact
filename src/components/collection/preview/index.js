@@ -24,28 +24,24 @@ const CollectionPreview = ({
   }, [action, id, dispatch, params, data]);
   const rowIsSelected = selectedRow === index;
   return (
-    <Fragment>
-      <div class={styles["collection-preview"]}>
-        <h1 class={styles["collection-preview__title"]}>
-          {title.toUpperCase()}
-        </h1>
-        <div class={styles["collection-preview__box"]}>
-          <div class={styles["collection-preview__inner"]}>
-            {data
-              ? data.map((item, itemIndex) => (
-                  <CollectionItem
-                    key={item.id}
-                    item={item}
-                    movies
-                    index={itemIndex}
-                    parentIsSelected={rowIsSelected}
-                  />
-                ))
-              : null}
-          </div>
+    <div class={styles["collection-preview"]}>
+      <h1 class={styles["collection-preview__title"]}>{title.toUpperCase()}</h1>
+      <div class={styles["collection-preview__box"]}>
+        <div class={styles["collection-preview__inner"]}>
+          {data
+            ? data.map((item, itemIndex) => (
+                <CollectionItem
+                  key={item.id}
+                  item={item}
+                  movies
+                  index={itemIndex}
+                  parentIsSelected={rowIsSelected}
+                />
+              ))
+            : null}
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 const mapStateToProps = (state, { id, index }) => ({

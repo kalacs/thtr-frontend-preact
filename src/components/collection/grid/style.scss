@@ -3,6 +3,7 @@
   flex-direction: row;
   position: relative;
   margin-bottom: 40px;
+  overflow: hidden;
 
   &__left-arrow,
   &__right-arrow {

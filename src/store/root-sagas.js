@@ -164,9 +164,7 @@ function* doScrollHorizontal({ payload: { row, column, direction } }) {
   }
 
   if (node) {
-    yield delay(400);
-    yield call(scrollColumn, node);
-    yield delay(400);
+    yield call(scrollColumn, row, direction);
   }
   yield call(addSelectedClass, row, column);
 }

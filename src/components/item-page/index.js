@@ -55,7 +55,6 @@ class ItemPage extends Component {
               </div>
               <div class={styles["item__text-box"]}>
                 <h1 class={styles["item__title"]}>{title}</h1>
-                <h1 class={styles["item__title"]}>{name}</h1>
                 <span class={styles["item__overview"]}>{overview}</span>
                 <div class={styles["item-rating"]}>
                   <img

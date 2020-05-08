@@ -22,19 +22,17 @@ const CollectionGrid = ({
 
   return (
     <div class={styles["collection-grid"]}>
-      <div class={styles["collection-grid__outer"]}>
-        <div class={styles["collection-grid__inner"]}>
-          {data
-            ? data.map((item, itemIndex) => (
-                <CollectionGridItem
-                  key={item.id}
-                  item={item}
-                  index={itemIndex}
-                  parentIsSelected={rowIsSelected}
-                />
-              ))
-            : null}
-        </div>
+      <div class={styles["collection-grid__inner"]}>
+        {data
+          ? data.map((item, itemIndex) => (
+              <CollectionGridItem
+                key={item.id}
+                item={item}
+                index={itemIndex}
+                parentIsSelected={rowIsSelected}
+              />
+            ))
+          : null}
       </div>
     </div>
   );

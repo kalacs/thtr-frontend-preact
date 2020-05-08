@@ -1,5 +1,6 @@
 .collection-item {
   position: relative;
+  height: 218px;
 
   @media screen and (min-width: 800px) {
     &.selected {
@@ -9,11 +10,11 @@
     }
 
     &.selected ~ .collection-item {
-      transform: translateX(-20%);
+      transform: translateX(0%);
     }
 
     &.selected:nth-child(5n + 1) ~ .collection-item {
-      transform: translateX(50%);
+      transform: translateX(0%);
     }
 
     &.selected:last-child ~ .collection-item {
@@ -33,7 +34,7 @@
     }
 
     &.selected {
-      transform: scale(1.5) translateX(-8%);
+      transform: scale(1.5) translateX(0%);
       z-index: 1;
     }
     &.selected:nth-child(5n + 1) {
@@ -44,12 +45,13 @@
     }
 
     &.selected:nth-child(5n) {
-      transform: scale(1.5) translateX(-30%);
+      transform: scale(1.5);
+      transform-origin: right;
     }
   }
 
   &__movie-image {
-    width: 300px;
+    width: 380px;
     z-index: 1;
 
     @media screen and (max-width: 800px) {

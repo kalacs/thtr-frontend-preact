@@ -16,10 +16,16 @@ export const truncate = function (str, length, ending) {
 export const scrollRow = (domNode) => {
   if (domNode) domNode.scrollIntoView({ behavior: "smooth", block: "start" });
 };
-export const scrollColumn = (domNode) => {
-  if (domNode) domNode.scrollIntoView({ behavior: "smooth", inline: "start" });
-};
+export const scrollColumn = (row, direction) => {
+  const domNode = document.querySelector(`div[data-focus-row='${row}'] > div`);
 
+  if (domNode) {
+    domNode.scrollBy({
+      behavior: "smooth",
+      left: 1900 * direction,
+    });
+  }
+};
 export const getDomNode = (row, column) =>
   document.querySelector(
     `div[data-focus-row='${row}'] div[data-focus-column='${column}']`

@@ -1,21 +1,10 @@
 import { h } from "preact";
-import { Link } from "preact-router";
 import Logo from "../../assets/images/logo.png";
 import styles from "./style.scss";
-//import SearchBar from "../SearchBar/SearchBar";
-/*
-import {
-  selectCurrentUser,
-  selectToggleHidden,
-} from "../../Redux/User/user-selectors";
-*/
-//import { ToggleMenuHidden } from "../../Redux/User/user-actions";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Header = ({ currentRoute = "", hidden = true }) => {
+const Header = () => {
   return (
     <div class={styles.header}>
       <div class={styles["header__logo-box"]}>
@@ -38,7 +27,6 @@ const Header = ({ currentRoute = "", hidden = true }) => {
 
         <div class={styles.header__searchbar}> </div>
       </div>
-      <FontAwesomeIcon icon={faBars} class={styles["header__nav-menu-icon"]} />
     </div>
   );
 };
