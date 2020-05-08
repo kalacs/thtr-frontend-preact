@@ -4,25 +4,25 @@ export const INITIAL_STATE = [
   {
     id: 1,
     title: "Újdonságok",
-    layout: "grid",
+    layout: "tile",
     action: "getTrendingMovies",
   },
   {
     id: 2,
     title: "Népszerű",
-    layout: "film_strip",
+    layout: "tile",
     action: "getPopularMovies",
   },
   {
     id: 3,
     title: "Legjobb értékelés",
-    layout: "film_strip",
+    layout: "tile",
     action: "getTopRatedMovies",
   },
   {
     id: 16,
     title: "Animációs",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [16],
@@ -33,7 +33,7 @@ export const INITIAL_STATE = [
   {
     id: 10751,
     title: "Családi",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [10751],
@@ -43,7 +43,7 @@ export const INITIAL_STATE = [
   {
     id: 35,
     title: "Vígjáték",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [35],
@@ -53,7 +53,7 @@ export const INITIAL_STATE = [
   {
     id: 14,
     title: "Fantasy",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [14],
@@ -63,7 +63,7 @@ export const INITIAL_STATE = [
   {
     id: 28,
     title: "Akció",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [28],
@@ -73,7 +73,7 @@ export const INITIAL_STATE = [
   {
     id: 12,
     title: "Kaland",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [12],
@@ -83,7 +83,7 @@ export const INITIAL_STATE = [
   {
     id: 10749,
     title: "Romantikus",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [10749],
@@ -93,7 +93,7 @@ export const INITIAL_STATE = [
   {
     id: 80,
     title: "Bűnügyi",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [80],
@@ -103,7 +103,7 @@ export const INITIAL_STATE = [
   {
     id: 99,
     title: "Dokumentum",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [99],
@@ -113,7 +113,7 @@ export const INITIAL_STATE = [
   {
     id: 18,
     title: "Dráma",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [18],
@@ -123,7 +123,7 @@ export const INITIAL_STATE = [
   {
     id: 36,
     title: "Történelmi",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [36],
@@ -133,7 +133,7 @@ export const INITIAL_STATE = [
   {
     id: 9648,
     title: "Rejtély",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [9648],
@@ -143,7 +143,7 @@ export const INITIAL_STATE = [
   {
     id: 878,
     title: "Sci-Fi",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [878],
@@ -153,7 +153,7 @@ export const INITIAL_STATE = [
   {
     id: 53,
     title: "Thriller",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [53],
@@ -163,7 +163,7 @@ export const INITIAL_STATE = [
   {
     id: 27,
     title: "Horror",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [27],
@@ -173,7 +173,7 @@ export const INITIAL_STATE = [
   {
     id: 10402,
     title: "Zenei",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [10402],
@@ -183,7 +183,7 @@ export const INITIAL_STATE = [
   {
     id: 10752,
     title: "Háborús",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [10752],
@@ -193,7 +193,7 @@ export const INITIAL_STATE = [
   {
     id: 37,
     title: "Western",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [37],
@@ -203,7 +203,7 @@ export const INITIAL_STATE = [
   {
     id: 10770,
     title: "TV film",
-    layout: "film_strip",
+    layout: "tile",
     action: "getMoviesByGenre",
     params: {
       genres: [10770],

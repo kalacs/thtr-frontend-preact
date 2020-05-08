@@ -4,9 +4,10 @@ import { lazy, memo, Suspense } from "preact/compat";
 import "./style.scss";
 import { connect } from "react-redux";
 import CollectionGrid from "../../components/collection/grid";
+import CollectionTile from "../../components/collection/tile";
 import Spinner from "../../components/spinner";
 import { getCollections } from "../../store/collections";
-import { setSelectedRow, getSelectedMovie } from "../../store/ui";
+import { getSelectedMovie } from "../../store/ui";
 import { useKeyPress } from "../../hooks/key-press";
 import { route } from "preact-router";
 
@@ -29,6 +30,8 @@ const CollectionLayout = function ({ collection, index }) {
         <Suspense fallback={<Spinner />}>
           <CollectionPreview {...collection} index={index} />
         </Suspense>
+      ) : type === "tile" ? (
+        <CollectionTile {...collection} index={index} />
       ) : (
         ""
       )}

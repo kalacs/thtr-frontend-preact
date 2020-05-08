@@ -1,4 +1,4 @@
-import styles from "../components/collection/preview/item/style.scss";
+import styles from "../components/collection/tile/item/style.scss";
 
 export const truncate = function (str, length, ending) {
   if (length == null) {
@@ -45,10 +45,13 @@ export const removeSelectedClass = (row) => {
 };
 
 export const addSelectedClass = (row, column) => {
-  document
-    .querySelector(
-      `div[data-focus-row='${row}'] div[data-focus-column='${column}']`
-    )
-    .classList.add(styles.selected);
+  const node = document.querySelector(
+    `div[data-focus-row='${row}'] div[data-focus-column='${column}']`
+  );
+
+  if (node) {
+    node.classList.add(styles.selected);
+  }
+
   return true;
 };

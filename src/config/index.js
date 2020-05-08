@@ -23,6 +23,16 @@ const PROFILE_SIZE = "w92";
 
 const TRAILER_LINK = "https://www.youtube.com/watch?v=";
 
+const posterSizes = {
+  POSTER_XS: "w92",
+  POSTER_S: "w154",
+  POSTER_M: "w185",
+  POSTER_L: "w342",
+  POSTER_XL: "w500",
+  POSTER_XXL: "w780",
+  POSTER_ORIGINAL: "original",
+};
+
 export {
   API_URL,
   API_KEY,
@@ -33,4 +43,13 @@ export {
   PROFILE_SIZE,
   TRAILER_LINK,
 };
+export const {
+  POSTER_XS,
+  POSTER_S,
+  POSTER_M,
+  POSTER_L,
+  POSTER_XL,
+  POSTER_XXL,
+  POSTER_ORIGINAL,
+} = posterSizes;
 export * from "./buttons";

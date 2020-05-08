@@ -1,0 +1,36 @@
+.collection-tile {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  &__title {
+    font-size: 1.4rem;
+    margin-left: 3px;
+
+    @media screen and (max-width: 800px) {
+      font-size: 1rem;
+    }
+  }
+
+  &__collection-item {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    position: relative;
+  }
+
+  &__inner {
+    display: flex;
+    cursor: pointer;
+
+    @media screen and (max-width: 800px) {
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+}
