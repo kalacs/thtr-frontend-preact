@@ -1,6 +1,6 @@
 .collection-item {
   position: relative;
-  margin-right: 36px;
+  margin-right: 45px;
 
   @media screen and (min-width: 800px) {
     &.selected {
@@ -19,6 +19,9 @@
 
     &:nth-child(5n + 1) {
     }
+    &:nth-child(5n) {
+      margin: 0;
+    }
 
     &:last-child {
     }
@@ -27,6 +30,7 @@
       border: 2px solid red;
       z-index: 1;
       border-radius: 10px;
+      margin-right: 41px;
     }
     &.selected:nth-child(5n + 1) {
     }
@@ -34,12 +38,14 @@
     }
 
     &.selected:nth-child(5n) {
+      margin: 0 0 0 -4px;
     }
   }
 
   &__movie-image {
     z-index: 1;
     border-radius: 10px;
+    width: 340px;
   }
 
   &__text {

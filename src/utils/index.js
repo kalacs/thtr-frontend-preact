@@ -17,12 +17,15 @@ export const scrollRow = (domNode) => {
   if (domNode) domNode.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 export const scrollColumn = (row, direction) => {
-  const domNode = document.querySelector(`div[data-focus-row='${row}'] > div`);
+  console.log(styles);
+  const domNode = document.querySelector(
+    `div[data-focus-row='${row}'] > div > div`
+  );
 
   if (domNode) {
     domNode.scrollBy({
       behavior: "smooth",
-      left: 1900 * direction,
+      left: 1880 * direction,
     });
   }
 };
