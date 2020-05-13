@@ -15,9 +15,11 @@ import {
   BUTTON_UP,
   BUTTON_LEFT,
   BUTTON_RIGHT,
+  BUTTON_GREEN,
 } from "../config";
 import { useKeyPress } from "../hooks/key-press";
 import { nextRow, previousRow, previousColumn, nextColumn } from "../store/ui";
+import Player from "../routes/player";
 // Must be the first import
 if (process.env.NODE_ENV === "development") {
   // Must use require here as import statements are only allowed
@@ -35,6 +37,7 @@ const App = memo(() => {
           <Movies path="/" />
           <Movies path="/movies" />
           <MovieItemPage path="/movies/:id" />
+          <Player path="/player" />
         </Router>
       </Provider>
     </div>
@@ -46,6 +49,9 @@ export default function AppContainer() {
   const dispatch = store.dispatch.bind(store);
   useKeyPress(BUTTON_BACK, noop, () => {
     route("/movies", true);
+  });
+  useKeyPress(BUTTON_GREEN, noop, () => {
+    route("/player", true);
   });
   useKeyPress(BUTTON_DOWN, noop, () => {
     dispatch(nextRow());
