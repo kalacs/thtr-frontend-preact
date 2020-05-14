@@ -15,7 +15,6 @@ import {
   BUTTON_UP,
   BUTTON_LEFT,
   BUTTON_RIGHT,
-  BUTTON_GREEN,
 } from "../config";
 import { useKeyPress } from "../hooks/key-press";
 import { nextRow, previousRow, previousColumn, nextColumn } from "../store/ui";
@@ -49,9 +48,6 @@ export default function AppContainer() {
   const dispatch = store.dispatch.bind(store);
   useKeyPress(BUTTON_BACK, noop, () => {
     route("/movies", true);
-  });
-  useKeyPress(BUTTON_GREEN, noop, () => {
-    route("/player", true);
   });
   useKeyPress(BUTTON_DOWN, noop, () => {
     dispatch(nextRow());

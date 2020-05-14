@@ -10,6 +10,10 @@ import {
   requestAdditionalData,
   additionalDataSuccess,
   additionalDataFailed,
+  setVersionsIsFetching,
+  requestVersions,
+  versionsSuccess,
+  versionsFailed,
 } from "./movie";
 import * as movieService from "../services/movie-service";
 import {
@@ -65,6 +69,24 @@ function* makeAdditionalRequest({ payload: { action, params } }) {
 function* onAdditionalRequest() {
   const { type } = requestAdditionalData();
   yield takeEvery(type, makeAdditionalRequest);
+}
+
+function* makeVersionRequest({ payload: { action, params } }) {
+  try {
+    yield put(setVersionsIsFetching(true));
+    const data = yield call(movieService[action], params);
+    yield put(versionsSuccess({ data }));
+  } catch (error) {
+    console.log("ERROR", error);
+    yield put(versionsFailed({ error }));
+  } finally {
+    yield put(setVersionsIsFetching(false));
+  }
+}
+
+function* onVersionsRequest() {
+  const { type } = requestVersions();
+  yield takeEvery(type, makeVersionRequest);
 }
 
 function* onChangeRow() {
@@ -179,5 +201,6 @@ export default function* rootSaga() {
     onChangeColumn(),
     onVerticalScrollRequest(),
     onHorizontalScrollRequest(),
+    onVersionsRequest(),
   ]);
 }

@@ -58,3 +58,5 @@ export const addSelectedClass = (row, column) => {
 
   return true;
 };
+
+export const noop = () => {};

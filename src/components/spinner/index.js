@@ -1,10 +1,12 @@
 import { h } from "preact";
-import "./style.scss";
+import styles from "./style.scss";
 
 const Spinner = () => {
   return (
-    <div className="spinner-overlay">
-      <div className="spinner-container"> </div>
+    <div class={styles["spinner-overlay"]}>
+      <div class={styles["spinner-container"]}>
+        <h3>Loading ...</h3>
+      </div>
     </div>
   );
 };
