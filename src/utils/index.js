@@ -17,7 +17,6 @@ export const scrollRow = (domNode) => {
   if (domNode) domNode.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 export const scrollColumn = (row, direction) => {
-  console.log(styles);
   const domNode = document.querySelector(
     `div[data-focus-row='${row}'] > div > div`
   );

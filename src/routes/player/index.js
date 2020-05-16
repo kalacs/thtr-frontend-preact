@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { getStreamUrl } from "../../store/media";
 
 const Player = ({ url }) => {
-  console.log("URL", url);
   return (
     <div class={styles["player-container"]}>
       {url ? (
