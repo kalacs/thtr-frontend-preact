@@ -6,6 +6,7 @@ import collectionReducer from "./collections";
 import listReducer from "./List/list-reducer";
 import movieReducer from "./movie";
 import uiReducer from "./ui";
+import mediaReducer from "./media";
 
 export default combineReducers({
   movie: movieReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   list: listReducer,
   collections: collectionReducer,
   ui: uiReducer,
+  media: mediaReducer,
 });

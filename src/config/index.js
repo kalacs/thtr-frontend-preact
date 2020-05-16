@@ -3,6 +3,8 @@
 const API_URL = "https://api.themoviedb.org/3/";
 const API_KEY = "9f1ffd64abd4bde18614fd9087d87d71";
 
+const SCRAPER_URL = "http://192.168.0.124:3000/scraper";
+const TORRENTS_URL = "http://192.168.0.124:3000/torrents";
 // Images
 // An image URL looks like this example:
 // http://image.tmdb.org/t/p/w780/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg
@@ -42,6 +44,8 @@ export {
   POSTER_SIZE,
   PROFILE_SIZE,
   TRAILER_LINK,
+  SCRAPER_URL,
+  TORRENTS_URL,
 };
 export const {
   POSTER_XS,
@@ -52,4 +56,12 @@ export const {
   POSTER_XXL,
   POSTER_ORIGINAL,
 } = posterSizes;
+export const getVersionPreference = () => [
+  //  "en-sd",
+  "hu-sd",
+  "en-hd",
+  //  "hu-uhd",
+  "hu-fhd",
+  //  "en-uhd",
+];
 export * from "./buttons";

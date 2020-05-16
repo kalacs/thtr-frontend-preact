@@ -1,4 +1,4 @@
-import { API_URL, API_KEY } from "../config";
+import { API_URL, API_KEY, SCRAPER_URL } from "../config";
 
 const getTrendingUrl = (type) =>
   `${API_URL}trending/${type}/week?api_key=${API_KEY}&language=hu-HU&include_adult=false&include_video=false&page=1`;
@@ -19,6 +19,8 @@ const getDiscoverUrl = (params, type) => {
 
 const getAdditionalDatadUrl = ({ id }, type) =>
   `${API_URL}${type}/${id}?api_key=${API_KEY}&append_to_response=videos,credits&language=hu-HU`;
+
+const getVersionsDatadUrl = ({ id }) => `${SCRAPER_URL}/moviesByImdb/${id}`;
 
 export const getTrendingMovies = () => getTrending();
 export const getTrending = (type = "movie") =>
@@ -41,3 +43,7 @@ export const getAdditionalData = (params, type = "movie") =>
   fetch(getAdditionalDatadUrl(params, type)).then((response) =>
     response.json()
   );
+
+export const getVersionsMovieData = (params) => getVersionsData(params);
+export const getVersionsData = (params, type = "movie") =>
+  fetch(getVersionsDatadUrl(params, type)).then((response) => response.json());
