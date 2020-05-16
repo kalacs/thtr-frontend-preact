@@ -32,7 +32,7 @@ export const {
       credits: { cast: [] },
       videos: {},
     },
-    versions: [],
+    versions: new Map(),
   },
 
   actions: {
@@ -54,7 +54,6 @@ export const {
           acc.set(key, version);
           return acc;
         }, new Map());
-
       return Object.assign({}, state, { versions });
     },
     versionsFailed: (state, { id, error }) => state,

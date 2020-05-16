@@ -5,6 +5,8 @@ import {
   BACKDROP_SIZE,
   POSTER_SIZE,
   BUTTON_GREEN,
+  BUTTON_OK,
+  TORRENTS_URL,
 } from "../../config";
 import styles from "./style.scss";
 import { connect } from "react-redux";
@@ -21,6 +23,7 @@ import ItemPageMediaContainer from "../item-page-media";
 import { noop } from "../../utils";
 import { useKeyPress } from "../../hooks/key-press";
 import { route } from "preact-router";
+import { setStreamUrl } from "../../store/media";
 
 const ItemPage = ({ item, movies, tvshow, dispatch }) => {
   const { title, overview, backdrop_path, poster_path, vote_average } = item;
@@ -37,8 +40,30 @@ const ItemPage = ({ item, movies, tvshow, dispatch }) => {
         )
       : this.props.dispatch(getAdditionalTVData(item.id));
   }, [dispatch, movies, item]);
-  useKeyPress(BUTTON_GREEN, noop, () => {
-    route("/player", true);
+
+  useKeyPress(BUTTON_OK, noop, () => {
+    // get selected version
+    const button = document.querySelector("button.selected[data-torrent-id]");
+    const id = button.dataset.torrentId;
+
+    if (id) {
+      // request stream server
+      fetch(TORRENTS_URL, {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ id }),
+      })
+        .then((response) => response.json())
+        .then(({ infoHash }) => {
+          return fetch(`${TORRENTS_URL}/${infoHash}/server`);
+        })
+        .then((response) => response.json())
+        .then((streamServer) => {
+          dispatch(setStreamUrl(`http://${streamServer.url}`));
+          route("/player");
+        });
+    }
   });
 
   return (

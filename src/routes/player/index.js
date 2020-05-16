@@ -1,18 +1,29 @@
 import { h } from "preact";
 import ReactPlayer from "react-player";
 import styles from "./style.scss";
+import { connect } from "react-redux";
+import { getStreamUrl } from "../../store/media";
 
-const Player = () => (
-  <div class={styles["player-container"]}>
-    <ReactPlayer
-      className="react-player"
-      width="100%"
-      height="100%"
-      url="http://192.168.0.124:8888/0"
-      playing
-      controls
-    />
-  </div>
-);
+const Player = ({ url }) => {
+  console.log("URL", url);
+  return (
+    <div class={styles["player-container"]}>
+      {url ? (
+        <ReactPlayer
+          className="react-player"
+          width="100%"
+          height="100%"
+          url={url}
+          playing
+          controls
+        />
+      ) : (
+        <h1>No play</h1>
+      )}
+    </div>
+  );
+};
 
-export default Player;
+export default connect((state) => ({
+  url: getStreamUrl(state),
+}))(Player);

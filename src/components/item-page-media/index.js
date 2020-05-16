@@ -24,6 +24,7 @@ const enhance = compose(
 );
 
 const ItemPageMedia = ({ versions = new Map() }) => {
+  console.log("VERSIONS", versions);
   const preferredVersion = getVersionPreference()
     .map((combination) => (versions.get(combination) ? combination : undefined))
     .filter((value) => !!value)
@@ -32,18 +33,24 @@ const ItemPageMedia = ({ versions = new Map() }) => {
   const availableVersions = versionsArray
     .map(([_, value]) => value)
     .filter((value) => !!value);
-  console.log(availableVersions);
   return (
-    <div class={styles["item-page-footer"]}>
+    <div
+      class={classNames(styles["item-page-footer"], styles["item-page-media"])}
+    >
       <div class={styles["item-page-footer__btn-container"]}>
-        {availableVersions.map(({ language, quality }, index) => {
+        {availableVersions.map(({ language, quality, id }, index) => {
           const combination = `${language}-${quality}`;
           return (
             <button
               key={index}
-              class={classNames(styles["item-page-footer__btn"], {
-                selected: preferredVersion === combination,
-              })}
+              class={classNames(
+                styles["item-page-footer__btn"],
+                styles["item-page-media__btn"],
+                {
+                  selected: preferredVersion === combination,
+                }
+              )}
+              data-torrent-id={id}
             >
               <FontAwesomeIcon
                 icon={faPlay}
