@@ -37,6 +37,8 @@ import {
 } from "../utils";
 import { init } from "./general";
 const GRID_ROW = 0;
+const ITEM_PER_PAGE = 5;
+const getItemPosition = (index, perPage) => index % perPage;
 
 function* makeRequest({ payload: { action, id, params } }) {
   try {
@@ -126,8 +128,35 @@ function* makeScrollUpRequest() {
 }
 
 function* onChangeColumn() {
-  yield takeEvery(nextColumn().type, makeScrollForwardRequest);
-  yield takeEvery(previousColumn().type, makeScrollBackwardRequest);
+  yield takeEvery(nextColumn().type, doSelectNextColumn);
+  yield takeEvery(previousColumn().type, doSelectPreviousColumn);
+}
+
+function* doSelectNextColumn() {
+  const row = yield select(getSelectedRow);
+  const nextColumn = yield select(getSelectedColumn);
+  // calculate if it is need to scroll
+  //          ->x
+  // [0,1,2,3,4]
+  const nextPosition = getItemPosition(nextColumn, ITEM_PER_PAGE);
+  yield put(selectMovie({ row, column: nextColumn }));
+
+  if (nextPosition === 0) {
+    yield put(scrollToColumn({ row, column: nextColumn, direction: 1 }));
+  }
+}
+function* doSelectPreviousColumn() {
+  const row = yield select(getSelectedRow);
+  const column = yield select(getSelectedColumn);
+  // calculate if it is need to scroll
+  //          x<-
+  // [0,1,2,3,4]
+  const position = getItemPosition(column, ITEM_PER_PAGE);
+  yield put(selectMovie({ row, column }));
+
+  if (position === 4) {
+    yield put(scrollToColumn({ row, column: column - 4, direction: -1 }));
+  }
 }
 
 function* makeScrollForwardRequest() {
@@ -156,42 +185,9 @@ function* onHorizontalScrollRequest() {
 }
 
 function* doScrollHorizontal({ payload: { row, column, direction } }) {
-  const PREVIEW_ITEM_COUNT = 5;
-  const isForward = direction > 0;
-  const isBackward = !isForward;
-  const checkItemIsFirst = (index, perPage) => index % perPage;
-  let node;
-
-  // grid row need to scroll always
-  if (row === GRID_ROW) {
-    node = getDomNode(row, column);
-  }
-  // should scroll only item is in new page
-  else {
-    const isCurrentItemIsFirst = !checkItemIsFirst(column, PREVIEW_ITEM_COUNT);
-    const isPreviousItemIsFirst = !checkItemIsFirst(
-      column + 1,
-      PREVIEW_ITEM_COUNT
-    );
-    yield call(removeSelectedClass, row);
-
-    if (isForward && isCurrentItemIsFirst) {
-      // scroll to current column
-      node = getDomNode(row, column);
-    }
-
-    if (isBackward && isPreviousItemIsFirst) {
-      // srcoll to first column of page
-      const firstItemOfPage =
-        column - checkItemIsFirst(column, PREVIEW_ITEM_COUNT);
-      node = getDomNode(row, firstItemOfPage);
-    }
-  }
-
-  if (node) {
+  if (column > -1) {
     yield call(scrollColumn, row, direction);
   }
-  yield put(selectMovie({ row, column }));
 }
 
 function* onInit() {
@@ -209,9 +205,13 @@ function* onSelectMovie() {
   yield takeEvery(selectMovie().type, doSelectMovie);
 }
 function* doSelectMovie({ payload: { row, column } }) {
-  const node = getDomNode(row, column);
-  yield put(setSelectedMovie({ id: node.dataset.movieId }));
-  yield call(addSelectedClass, row, column);
+  console.log({ row, column });
+  if (column > -1) {
+    const node = getDomNode(row, column);
+    yield call(removeSelectedClass, row);
+    yield put(setSelectedMovie({ id: node.dataset.movieId }));
+    yield call(addSelectedClass, row, column);
+  }
 }
 
 // notice how we now only export the rootSaga

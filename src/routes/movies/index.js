@@ -7,9 +7,21 @@ import CollectionGrid from "../../components/collection/grid";
 import CollectionTile from "../../components/collection/tile";
 import Spinner from "../../components/spinner";
 import { getCollections } from "../../store/collections";
-import { getSelectedMovie } from "../../store/ui";
+import {
+  getSelectedMovie,
+  nextRow,
+  previousRow,
+  previousColumn,
+  nextColumn,
+} from "../../store/ui";
 import { useKeyPress } from "../../hooks/key-press";
 import { route } from "preact-router";
+import {
+  BUTTON_DOWN,
+  BUTTON_UP,
+  BUTTON_LEFT,
+  BUTTON_RIGHT,
+} from "../../config";
 
 const CollectionPreview = lazy(() =>
   import("../../components/collection/preview")
@@ -62,7 +74,22 @@ const mapStateToProps = (state) => ({
 });
 const MovieContainer = connect(mapStateToProps)((props) => {
   const bounded = handleEnter.bind(null, props.selectedMovie);
+  const { dispatch } = props;
   useKeyPress("Enter", noop, bounded);
+
+  useKeyPress(BUTTON_DOWN, noop, () => {
+    dispatch(nextRow());
+  });
+  useKeyPress(BUTTON_UP, noop, () => {
+    dispatch(previousRow());
+  });
+  useKeyPress(BUTTON_LEFT, noop, () => {
+    dispatch(previousColumn());
+  });
+  useKeyPress(BUTTON_RIGHT, noop, () => {
+    dispatch(nextColumn());
+  });
+
   return <Movies {...props} />;
 });
 export default MovieContainer;

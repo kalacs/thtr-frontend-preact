@@ -245,7 +245,9 @@ export const {
     collectionDataSuccess: (state, { id, data }) => {
       //      state.datas[id] = Object.assign({}, state.datas[id], { data });
       return Object.assign({}, state, {
-        datas: Object.assign({}, state.datas, { [id]: { data } }),
+        datas: Object.assign({}, state.datas, {
+          [id]: { data: data.filter(({ poster_path }) => !!poster_path) },
+        }),
       });
     },
     collectionDataFailed: (state, { id, error }) => state,

@@ -9,15 +9,8 @@ import Header from "./header";
 // Code-splitting is automated for routes
 import Movies from "../routes/movies";
 import MovieItemPage from "../routes/movie";
-import {
-  BUTTON_BACK,
-  BUTTON_DOWN,
-  BUTTON_UP,
-  BUTTON_LEFT,
-  BUTTON_RIGHT,
-} from "../config";
+import { BUTTON_BACK } from "../config";
 import { useKeyPress } from "../hooks/key-press";
-import { nextRow, previousRow, previousColumn, nextColumn } from "../store/ui";
 import Player from "../routes/player";
 // Must be the first import
 if (process.env.NODE_ENV === "development") {
@@ -45,21 +38,8 @@ const App = memo(() => {
 App.displayName = "App";
 
 export default function AppContainer() {
-  const dispatch = store.dispatch.bind(store);
   useKeyPress(BUTTON_BACK, noop, () => {
     route("/movies", true);
-  });
-  useKeyPress(BUTTON_DOWN, noop, () => {
-    dispatch(nextRow());
-  });
-  useKeyPress(BUTTON_UP, noop, () => {
-    dispatch(previousRow());
-  });
-  useKeyPress(BUTTON_LEFT, noop, () => {
-    dispatch(previousColumn());
-  });
-  useKeyPress(BUTTON_RIGHT, noop, () => {
-    dispatch(nextColumn());
   });
   return <App />;
 }

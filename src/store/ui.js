@@ -54,8 +54,11 @@ export const {
     },
     previousColumn: (state) => {
       const newItemPositions = state.itemPositions.slice();
-      newItemPositions[state.currentRow] =
-        newItemPositions[state.currentRow] - 1;
+      const currentPostition = newItemPositions[state.currentRow];
+
+      if (currentPostition > 0) {
+        newItemPositions[state.currentRow] = currentPostition - 1;
+      }
       return {
         ...state,
         itemPositions: newItemPositions,
