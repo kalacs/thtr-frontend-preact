@@ -25,6 +25,8 @@ import {
   previousColumn,
   scrollToRow,
   scrollToColumn,
+  selectMovie,
+  setSelectedMovie,
 } from "./ui";
 import {
   scrollRow,
@@ -107,7 +109,7 @@ function* makeScrollDownRequest() {
 
   if (row !== GRID_ROW) {
     yield delay(100);
-    yield call(addSelectedClass, row, column);
+    yield put(selectMovie({ row, column }));
   }
 }
 function* makeScrollUpRequest() {
@@ -119,7 +121,7 @@ function* makeScrollUpRequest() {
 
   if (row !== GRID_ROW) {
     yield delay(100);
-    yield call(addSelectedClass, row, column);
+    yield put(selectMovie({ row, column }));
   }
 }
 
@@ -189,7 +191,7 @@ function* doScrollHorizontal({ payload: { row, column, direction } }) {
   if (node) {
     yield call(scrollColumn, row, direction);
   }
-  yield call(addSelectedClass, row, column);
+  yield put(selectMovie({ row, column }));
 }
 
 function* onInit() {
@@ -199,7 +201,16 @@ function* onInit() {
 function* doInit() {
   const row = yield select(getSelectedRow);
   const column = yield select(getSelectedColumn);
-  yield delay(1000);
+  yield delay(500);
+  yield put(selectMovie({ row, column }));
+}
+
+function* onSelectMovie() {
+  yield takeEvery(selectMovie().type, doSelectMovie);
+}
+function* doSelectMovie({ payload: { row, column } }) {
+  const node = getDomNode(row, column);
+  yield put(setSelectedMovie({ id: node.dataset.movieId }));
   yield call(addSelectedClass, row, column);
 }
 
@@ -215,5 +226,6 @@ export default function* rootSaga() {
     onVerticalScrollRequest(),
     onHorizontalScrollRequest(),
     onVersionsRequest(),
+    onSelectMovie(),
   ]);
 }

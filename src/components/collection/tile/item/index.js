@@ -12,12 +12,13 @@ import classNames from "classnames";
 
 const CollectionItem = memo((props) => {
   const { item, index } = props;
-  const { title, poster_path, name } = item;
+  const { title, poster_path, name, id } = item;
   const render = () => {
     return poster_path ? (
       <div
         class={classNames(styles["collection-item"])}
         data-focus-column={index}
+        data-movie-id={id}
       >
         <div class={styles["collection-item__movie-image"]}>
           <img
@@ -38,19 +39,5 @@ const CollectionItem = memo((props) => {
   return render();
 });
 CollectionItem.displayName = "CollectionItem";
-const mapStateToProps = (state, { parentIsSelected }) => ({
-  selectedColumn: parentIsSelected ? getSelectedColumn(state) : null,
-});
 
-const CollectionItemContainer = connect(mapStateToProps)(
-  ({ parentIsSelected, index, selectedColumn, item, dispatch }) => {
-    useEffect(() => {
-      if (parentIsSelected && index === selectedColumn) {
-        dispatch(setSelectedMovie(item));
-      }
-    }, [dispatch, parentIsSelected, index, selectedColumn, item]);
-    return <CollectionItem index={index} item={item} />;
-  }
-);
-
-export default CollectionItemContainer;
+export default CollectionItem;

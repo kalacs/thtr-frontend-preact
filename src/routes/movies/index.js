@@ -17,7 +17,7 @@ const CollectionPreview = lazy(() =>
 
 const noop = () => {};
 const handleEnter = (selectedMovie) => {
-  route(`/movies/${selectedMovie.id}`, { item: selectedMovie });
+  route(`/movies/${selectedMovie.id}`);
 };
 const CollectionLayout = function ({ collection, index }) {
   const { layout: type, action, id } = collection;
@@ -61,10 +61,8 @@ const mapStateToProps = (state) => ({
   selectedMovie: getSelectedMovie(state),
 });
 const MovieContainer = connect(mapStateToProps)((props) => {
-  const [rowIndex, setRowIndex] = useState(0);
   const bounded = handleEnter.bind(null, props.selectedMovie);
   useKeyPress("Enter", noop, bounded);
-
-  return <Movies {...props} rowIndex={rowIndex} setRowIndex={setRowIndex} />;
+  return <Movies {...props} />;
 });
 export default MovieContainer;
