@@ -12,6 +12,7 @@ export const {
     previousRow,
     scrollToColumn,
     scrollToRow,
+    selectMovie,
   },
   selectors: { getSelectedRow, getSelectedColumn, getSelectedMovie },
 } = autodux({
@@ -53,8 +54,11 @@ export const {
     },
     previousColumn: (state) => {
       const newItemPositions = state.itemPositions.slice();
-      newItemPositions[state.currentRow] =
-        newItemPositions[state.currentRow] - 1;
+      const currentPostition = newItemPositions[state.currentRow];
+
+      if (currentPostition > 0) {
+        newItemPositions[state.currentRow] = currentPostition - 1;
+      }
       return {
         ...state,
         itemPositions: newItemPositions,
@@ -62,6 +66,7 @@ export const {
     },
     scrollToRow: (state, { row, column, type = "vertical" }) => state,
     scrollToColumn: (state, { row, column, type = "horizontal" }) => state,
+    selectMovie: (state, { row, column }) => state,
   },
   selectors: {
     getSelectedColumn: (state) => state.itemPositions[state.currentRow],

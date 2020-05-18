@@ -57,11 +57,11 @@ export const {
   POSTER_ORIGINAL,
 } = posterSizes;
 export const getVersionPreference = () => [
-  //  "en-sd",
-  "hu-sd",
+  "en-sd",
+  //"hu-sd",
   "en-hd",
-  //  "hu-uhd",
+  "en-fhd",
+  "hu-hd",
   "hu-fhd",
-  //  "en-uhd",
 ];
 export * from "./buttons";
