@@ -33,6 +33,7 @@ import {
   removeSelectedClass,
   addSelectedClass,
 } from "../utils";
+import { init } from "./general";
 const GRID_ROW = 0;
 
 function* makeRequest({ payload: { action, id, params } }) {
@@ -191,10 +192,22 @@ function* doScrollHorizontal({ payload: { row, column, direction } }) {
   yield call(addSelectedClass, row, column);
 }
 
+function* onInit() {
+  yield takeEvery(init().type, doInit);
+}
+
+function* doInit() {
+  const row = yield select(getSelectedRow);
+  const column = yield select(getSelectedColumn);
+  yield delay(1000);
+  yield call(addSelectedClass, row, column);
+}
+
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield all([
+    onInit(),
     onRequest(),
     onAdditionalRequest(),
     onChangeRow(),

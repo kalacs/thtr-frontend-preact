@@ -45,7 +45,7 @@ const ItemPage = ({ item, movies, tvshow, dispatch }) => {
     // get selected version
     const button = document.querySelector("button.selected[data-torrent-id]");
     const id = button.dataset.torrentId;
-
+    // TODO refactor
     if (id) {
       // request stream server
       fetch(TORRENTS_URL, {
