@@ -2,7 +2,7 @@ import autodux from "autodux";
 
 export const {
   reducer,
-  actions: { init },
+  actions: { initMovies },
 } = autodux({
   // the slice of state your reducer controls
   slice: "general",
@@ -11,7 +11,7 @@ export const {
   initial: {},
 
   actions: {
-    init: (state) => ({
+    initMovies: (state) => ({
       ...state,
     }),
   },

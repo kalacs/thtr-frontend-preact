@@ -38,6 +38,6 @@ const CollectionItem = memo((props) => {
 
   return render();
 });
-CollectionItem.displayName = "CollectionItem";
+CollectionItem.displayName = "CollectionTileItem";
 
 export default CollectionItem;

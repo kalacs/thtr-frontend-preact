@@ -47,5 +47,6 @@ const mapStateToProps = (state, { id, index }) => ({
   selectedRow: getSelectedRow(state) === index ? index : false,
   selectedColumn: getSelectedColumn(state),
 });
-
-export default connect(mapStateToProps)(CollectionTile);
+const ContainerCollectionTile = connect(mapStateToProps)(CollectionTile);
+ContainerCollectionTile.displayName = "ContainerCollectionTile";
+export default ContainerCollectionTile;

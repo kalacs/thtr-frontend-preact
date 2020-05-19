@@ -18,6 +18,7 @@ import {
   requestAdditionalData,
   getMovieCast,
   getMovieVideos,
+  getAdditionalData,
 } from "../../store/movie";
 import ItemPageMediaContainer from "../item-page-media";
 import { noop } from "../../utils";
@@ -25,7 +26,7 @@ import { useKeyPress } from "../../hooks/key-press";
 import { route } from "preact-router";
 import { setStreamUrl } from "../../store/media";
 
-const ItemPage = ({ item, movies, tvshow, dispatch }) => {
+const ItemPage = ({ item, movies, tvshow, dispatch, id }) => {
   const { title, overview, backdrop_path, poster_path, vote_average } = item;
   const background = `${IMAGE_BASE_URL}${BACKDROP_SIZE}${backdrop_path}`;
   const poster = `${IMAGE_BASE_URL}${POSTER_SIZE}${poster_path}`;
@@ -35,11 +36,11 @@ const ItemPage = ({ item, movies, tvshow, dispatch }) => {
       ? dispatch(
           requestAdditionalData({
             action: "getAdditionalMovieData",
-            params: { id: item.id },
+            params: { id },
           })
         )
-      : this.props.dispatch(getAdditionalTVData(item.id));
-  }, [dispatch, movies, item]);
+      : this.props.dispatch(getAdditionalTVData(id));
+  }, [dispatch, movies, id]);
 
   useKeyPress(BUTTON_OK, noop, () => {
     // get selected version
@@ -114,6 +115,7 @@ const ItemPage = ({ item, movies, tvshow, dispatch }) => {
 const mapStateToProps = (state) => ({
   movieCast: getMovieCast(state),
   movieVideos: getMovieVideos(state),
+  item: getAdditionalData(state),
 });
 
 export default connect(mapStateToProps)(ItemPage);

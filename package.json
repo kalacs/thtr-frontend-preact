@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "preact build",
-    "serve": "sirv build --cors --single",
+    "build": "preact build --no-prerender",
+    "serve": "sirv build --cors --single --host 192.168.0.124 --port 8080 --dev",
     "dev": "preact watch",
     "lint": "eslint src",
     "test": "jest"

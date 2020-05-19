@@ -35,7 +35,7 @@ import {
   removeSelectedClass,
   addSelectedClass,
 } from "../utils";
-import { init } from "./general";
+import { initMovies } from "./general";
 const GRID_ROW = 0;
 const ITEM_PER_PAGE = 5;
 const getItemPosition = (index, perPage) => index % perPage;
@@ -191,13 +191,12 @@ function* doScrollHorizontal({ payload: { row, column, direction } }) {
 }
 
 function* onInit() {
-  yield takeEvery(init().type, doInit);
+  yield takeEvery(initMovies().type, doInit);
 }
 
 function* doInit() {
   const row = yield select(getSelectedRow);
   const column = yield select(getSelectedColumn);
-  yield delay(500);
   yield put(selectMovie({ row, column }));
 }
 
@@ -205,7 +204,6 @@ function* onSelectMovie() {
   yield takeEvery(selectMovie().type, doSelectMovie);
 }
 function* doSelectMovie({ payload: { row, column } }) {
-  console.log({ row, column });
   if (column > -1) {
     const node = getDomNode(row, column);
     yield call(removeSelectedClass, row);

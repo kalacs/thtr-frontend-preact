@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h, options } from "preact";
 import { useState } from "preact/hooks";
 import { lazy, memo, Suspense } from "preact/compat";
 import "./style.scss";
@@ -22,6 +22,30 @@ import {
   BUTTON_LEFT,
   BUTTON_RIGHT,
 } from "../../config";
+import CollectionItem from "../../components/collection/tile/item";
+import { store } from "../../store";
+import { initMovies } from "../../store/general";
+
+const ROWS = 22;
+const ITEMS = 10;
+let itemCount = 0;
+// Store previous hook
+const oldHook = options.diffed;
+
+// Set our own options hook
+options.diffed = (vnode) => {
+  if (vnode.type === CollectionItem) {
+    itemCount++;
+    if (ROWS * ITEMS === itemCount) {
+      store.dispatch(initMovies());
+    }
+  }
+
+  // Call previously defined hook if there was any
+  if (oldHook) {
+    oldHook(vnode);
+  }
+};
 
 const CollectionPreview = lazy(() =>
   import("../../components/collection/preview")

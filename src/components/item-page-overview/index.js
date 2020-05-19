@@ -28,13 +28,14 @@ const ItemPageOverview = (props) => {
     listMovieItemByTitle,
     listTvItemByTitle,
     item,
+    params: { id },
   } = props;
   const movieItemByTitle = [item];
   return (
     <div className="item-page-overview">
       {movies
-        ? movieItemByTitle.map((item) => (
-            <ItemPage key={item.id} item={item} movies={movies} />
+        ? movieItemByTitle.map((item, index) => (
+            <ItemPage key={index} id={id} movies={movies} />
           ))
         : null}
       {tvshow

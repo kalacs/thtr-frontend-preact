@@ -24,7 +24,6 @@ const enhance = compose(
 );
 
 const ItemPageMedia = ({ versions = new Map() }) => {
-  console.log("VERSIONS", versions);
   const preferredVersion = getVersionPreference()
     .map((combination) => (versions.get(combination) ? combination : undefined))
     .filter((value) => !!value)

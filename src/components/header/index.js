@@ -17,12 +17,6 @@ const Header = () => {
           <a class={styles.header__option} href="/movies">
             Movies
           </a>
-          <a class={styles.header__option} href="/tvshows">
-            TV Shows
-          </a>
-          <a class={styles.header__option} href="/mylist">
-            My List
-          </a>
         </div>
 
         <div class={styles.header__searchbar}> </div>
