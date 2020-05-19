@@ -14,6 +14,7 @@ import { branch, renderComponent, compose } from "recompose";
 import Spinner from "../spinner";
 import { getVersionPreference } from "../../config";
 import classNames from "classnames";
+import { getConfig } from "../../store/general";
 
 const WithSpinner = (isLoading) => branch(isLoading, renderComponent(Spinner));
 const enhance = compose(
@@ -68,13 +69,14 @@ const ItemPageMediaContainer = ({
   additionalData,
   getMovieVersions,
   versions,
+  appConfig,
 }) => {
   const imdbId = additionalData.imdb_id;
   useEffect(() => {
     if (imdbId) {
-      getMovieVersions(imdbId);
+      getMovieVersions(Object.assign({}, { id: imdbId }, appConfig));
     }
-  }, [getMovieVersions, imdbId]);
+  }, [getMovieVersions, imdbId, appConfig]);
   return (
     <div class={styles["item-page-media-container"]}>
       <WithSpinnerItemPageMedia versions={versions} />
@@ -83,11 +85,11 @@ const ItemPageMediaContainer = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getMovieVersions: (id) =>
+  getMovieVersions: (params) =>
     dispatch(
       requestVersions({
         action: "getVersionsMovieData",
-        params: { id },
+        params,
       })
     ),
 });
@@ -95,6 +97,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   additionalData: getAdditionalData(state),
   versions: getVersions(state),
+  appConfig: getConfig(state),
 });
 
 export default connect(

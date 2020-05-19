@@ -1,4 +1,12 @@
-import { all, takeEvery, put, call, select, delay } from "redux-saga/effects";
+import {
+  all,
+  takeEvery,
+  put,
+  call,
+  select,
+  delay,
+  takeLatest,
+} from "redux-saga/effects";
 import {
   requestCollectionData,
   collectionDataSuccess,
@@ -35,7 +43,9 @@ import {
   removeSelectedClass,
   addSelectedClass,
 } from "../utils";
-import { initMovies } from "./general";
+import { initMovies, init, configSuccess } from "./general";
+import { getConfig } from "../services/general-service";
+import { SCRAPER_URL, TORRENTS_URL, API_URL, API_KEY } from "../config";
 const GRID_ROW = 0;
 const ITEM_PER_PAGE = 5;
 const getItemPosition = (index, perPage) => index % perPage;
@@ -190,11 +200,11 @@ function* doScrollHorizontal({ payload: { row, column, direction } }) {
   }
 }
 
-function* onInit() {
-  yield takeEvery(initMovies().type, doInit);
+function* onMovieInit() {
+  yield takeEvery(initMovies().type, doMovieInit);
 }
 
-function* doInit() {
+function* doMovieInit() {
   const row = yield select(getSelectedRow);
   const column = yield select(getSelectedColumn);
   yield put(selectMovie({ row, column }));
@@ -211,12 +221,32 @@ function* doSelectMovie({ payload: { row, column } }) {
     yield call(addSelectedClass, row, column);
   }
 }
+function* onInit() {
+  yield takeLatest(init().type, doInit);
+}
 
+function* doInit() {
+  try {
+    const config = yield call(getConfig);
+    yield put(configSuccess(config));
+  } catch (error) {
+    // for dev
+    yield put(
+      configSuccess({
+        scraperUrl: SCRAPER_URL,
+        torrentsUrl: TORRENTS_URL,
+        movieAPIUrl: API_URL,
+        movieAPIKey: API_KEY,
+      })
+    );
+  }
+}
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield all([
     onInit(),
+    onMovieInit(),
     onRequest(),
     onAdditionalRequest(),
     onChangeRow(),
