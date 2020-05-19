@@ -1,8 +1,9 @@
 {
   "private": true,
-  "name": "nflix-preact",
-  "version": "0.3.0",
+  "name": "nflix",
+  "version": "0.4.0",
   "license": "MIT",
+  "main": "index.js",
   "scripts": {
     "build": "preact build --no-prerender",
     "serve": "node server.js",
