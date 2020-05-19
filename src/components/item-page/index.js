@@ -6,7 +6,6 @@ import {
   POSTER_SIZE,
   BUTTON_GREEN,
   BUTTON_OK,
-  TORRENTS_URL,
 } from "../../config";
 import styles from "./style.scss";
 import { connect } from "react-redux";
@@ -25,22 +24,24 @@ import { noop } from "../../utils";
 import { useKeyPress } from "../../hooks/key-press";
 import { route } from "preact-router";
 import { setStreamUrl } from "../../store/media";
+import { getConfig } from "../../store/general";
 
-const ItemPage = ({ item, movies, tvshow, dispatch, id }) => {
+const ItemPage = ({ item, movies, tvshow, dispatch, id, appConfig }) => {
   const { title, overview, backdrop_path, poster_path, vote_average } = item;
   const background = `${IMAGE_BASE_URL}${BACKDROP_SIZE}${backdrop_path}`;
   const poster = `${IMAGE_BASE_URL}${POSTER_SIZE}${poster_path}`;
+  const { torrentsUrl } = appConfig;
 
   useEffect(() => {
     movies
       ? dispatch(
           requestAdditionalData({
             action: "getAdditionalMovieData",
-            params: { id },
+            params: Object.assign({}, { id }, appConfig),
           })
         )
       : this.props.dispatch(getAdditionalTVData(id));
-  }, [dispatch, movies, id]);
+  }, [dispatch, movies, id, appConfig]);
 
   useKeyPress(BUTTON_OK, noop, () => {
     // get selected version
@@ -49,7 +50,7 @@ const ItemPage = ({ item, movies, tvshow, dispatch, id }) => {
     // TODO refactor
     if (id) {
       // request stream server
-      fetch(TORRENTS_URL, {
+      fetch(torrentsUrl, {
         method: "POST",
         mode: "cors",
         headers: { "Content-type": "application/json" },
@@ -57,7 +58,7 @@ const ItemPage = ({ item, movies, tvshow, dispatch, id }) => {
       })
         .then((response) => response.json())
         .then(({ infoHash }) => {
-          return fetch(`${TORRENTS_URL}/${infoHash}/server`);
+          return fetch(`${torrentsUrl}/${infoHash}/server`);
         })
         .then((response) => response.json())
         .then((streamServer) => {
@@ -116,6 +117,7 @@ const mapStateToProps = (state) => ({
   movieCast: getMovieCast(state),
   movieVideos: getMovieVideos(state),
   item: getAdditionalData(state),
+  appConfig: getConfig(state),
 });
 
 export default connect(mapStateToProps)(ItemPage);
