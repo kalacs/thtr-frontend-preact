@@ -1,0 +1,12 @@
+{
+  "frontend": {
+    "scraperUrl": "",
+    "torrentsUrl": "",
+    "movieAPIUrl": "https://api.themoviedb.org/3/",
+    "movieAPIKey": ""
+  },
+  "backend": {
+    "port": 3002,
+    "host": ""
+  }
+}
