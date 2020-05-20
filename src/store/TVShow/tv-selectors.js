@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import {FixString} from '../../Utils/FixString';
+import {FixString} from '../../utils/FixString';
 
 const selectTV = state => state.tv;
 
