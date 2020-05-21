@@ -38,7 +38,7 @@ const App = memo(() => {
 App.displayName = "App";
 
 export default function AppContainer() {
-  useKeyPress(BUTTON_BACK, noop, () => {
+  useKeyPress("Backspace", noop, () => {
     route("/movies", true);
   });
   return <App />;

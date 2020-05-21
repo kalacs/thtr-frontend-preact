@@ -58,13 +58,16 @@ const ItemPage = ({ item, movies, tvshow, dispatch, id, appConfig }) => {
       })
         .then((response) => response.json())
         .then(({ infoHash }) => {
-          return fetch(`${torrentsUrl}/${infoHash}/server`);
+          return fetch(`${torrentsUrl}/${infoHash}/server`).then(() => ({
+            infoHash,
+          }));
         })
-        .then((response) => response.json())
-        .then((streamServer) => {
-          dispatch(setStreamUrl(`http://${streamServer.url}`));
-          route("/player");
-        });
+        .then(({ infoHash }) => fetch(`${torrentsUrl}/${infoHash}/dlnacast`));
+      //        .then((response) => response.json())
+      //        .then((streamServer) => {
+      //          dispatch(setStreamUrl(`http://${streamServer.url}`));
+      //          route("/player");
+      //        });
     }
   });
 
