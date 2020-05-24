@@ -1,10 +1,9 @@
-import { h, Component } from "preact";
+import { h } from "preact";
 import { useEffect } from "preact/hooks";
 import {
   IMAGE_BASE_URL,
   BACKDROP_SIZE,
   POSTER_SIZE,
-  BUTTON_GREEN,
   BUTTON_OK,
 } from "../../config";
 import styles from "./style.scss";
@@ -22,8 +21,6 @@ import {
 import ItemPageMediaContainer from "../item-page-media";
 import { noop } from "../../utils";
 import { useKeyPress } from "../../hooks/key-press";
-import { route } from "preact-router";
-import { setStreamUrl } from "../../store/media";
 import { getConfig } from "../../store/general";
 
 const ItemPage = ({ item, movies, tvshow, dispatch, id, appConfig }) => {

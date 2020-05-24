@@ -58,7 +58,7 @@ export const {
 } = posterSizes;
 export const getVersionPreference = () => [
   "en-sd",
-  //"hu-sd",
+  "hu-sd",
   "en-hd",
   "en-fhd",
   "hu-hd",
