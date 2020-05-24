@@ -13,7 +13,7 @@ module.exports = function (config) {
   };
 
   const routes = router(get("/config", getConfig), get("/*", staticHandler));
-  const server = micro(routes);
+  let server = micro(routes);
 
   return {
     start() {
@@ -27,9 +27,10 @@ module.exports = function (config) {
         );
       });
     },
-    stop() {
-      const stopServer = promisify(server.close.bind(server));
-      return stopServer();
+    async stop() {
+      await promisify(server.close.bind(server))();
+      server = null;
+      return true;
     },
   };
 };
