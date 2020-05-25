@@ -28,7 +28,7 @@ module.exports = function (config) {
       });
     },
     async stop() {
-      await promisify(server.close.bind(server))();
+      if (server) await promisify(server.close.bind(server))();
       server = null;
       return true;
     },
