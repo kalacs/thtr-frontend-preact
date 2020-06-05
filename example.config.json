@@ -3,7 +3,8 @@
     "scraperUrl": "",
     "torrentsUrl": "",
     "movieAPIUrl": "https://api.themoviedb.org/3/",
-    "movieAPIKey": ""
+    "movieAPIKey": "",
+    "playMode": "on-tv"
   },
   "backend": {
     "port": 3002,
