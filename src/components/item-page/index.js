@@ -22,12 +22,16 @@ import ItemPageMediaContainer from "../item-page-media";
 import { noop } from "../../utils";
 import { useKeyPress } from "../../hooks/key-press";
 import { getConfig } from "../../store/general";
+import { route } from "preact-router";
+import { setStreamUrl } from "../../store/media";
+
+const toJson = (response) => response.json();
 
 const ItemPage = ({ item, movies, tvshow, dispatch, id, appConfig }) => {
   const { title, overview, backdrop_path, poster_path, vote_average } = item;
   const background = `${IMAGE_BASE_URL}${BACKDROP_SIZE}${backdrop_path}`;
   const poster = `${IMAGE_BASE_URL}${POSTER_SIZE}${poster_path}`;
-  const { torrentsUrl } = appConfig;
+  const { torrentsUrl, playMode } = appConfig;
 
   useEffect(() => {
     movies
@@ -53,18 +57,24 @@ const ItemPage = ({ item, movies, tvshow, dispatch, id, appConfig }) => {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ id }),
       })
-        .then((response) => response.json())
+        .then(toJson)
         .then(({ infoHash }) => {
-          return fetch(`${torrentsUrl}/${infoHash}/server`).then(() => ({
-            infoHash,
-          }));
-        })
-        .then(({ infoHash }) => fetch(`${torrentsUrl}/${infoHash}/dlnacast`));
-      //        .then((response) => response.json())
-      //        .then((streamServer) => {
-      //          dispatch(setStreamUrl(`http://${streamServer.url}`));
-      //          route("/player");
-      //        });
+          const startServer = fetch(`${torrentsUrl}/${infoHash}/server`);
+
+          if (playMode === "on-tv") {
+            startServer.then(() =>
+              fetch(`${torrentsUrl}/${infoHash}/dlnacast`)
+            );
+          } else {
+            startServer.then(toJson).then((streamServer) => {
+              console.log(streamServer);
+              dispatch(setStreamUrl(`http://${streamServer.url}`));
+              route("/player");
+            });
+          }
+
+          return startServer;
+        });
     }
   });
 
