@@ -62,8 +62,13 @@ const ItemPage = ({ item, movies, tvshow, dispatch, id, appConfig }) => {
           const startServer = fetch(`${torrentsUrl}/${infoHash}/server`);
 
           if (playMode === "on-tv") {
-            startServer.then(() =>
-              fetch(`${torrentsUrl}/${infoHash}/dlnacast`)
+            startServer.then(toJson).then(({ url }) =>
+              fetch(`${torrentsUrl}/dlnacast`, {
+                method: "POST",
+                mode: "cors",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({ url: `http://${url}` }),
+              })
             );
           } else {
             startServer.then(toJson).then((streamServer) => {
@@ -72,8 +77,6 @@ const ItemPage = ({ item, movies, tvshow, dispatch, id, appConfig }) => {
               route("/player");
             });
           }
-
-          return startServer;
         });
     }
   });
