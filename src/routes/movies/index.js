@@ -1,5 +1,5 @@
 import { h, options } from "preact";
-import { useState } from "preact/hooks";
+import { useState, useEffect } from "preact/hooks";
 import { lazy, memo, Suspense } from "preact/compat";
 import "./style.scss";
 import { connect } from "react-redux";
@@ -24,26 +24,48 @@ import {
 } from "../../config";
 import CollectionItem from "../../components/collection/tile/item";
 import { store } from "../../store";
-import { initMovies } from "../../store/general";
+import { initRouteMovies } from "../../store/general";
 
 const ROWS = 22;
 const ITEMS = 10;
 let itemCount = 0;
+
 // Store previous hook
 const oldHook = options.diffed;
-
+/*
 // Set our own options hook
 options.diffed = (vnode) => {
   if (vnode.type === CollectionItem) {
     itemCount++;
     if (ROWS * ITEMS === itemCount) {
-      store.dispatch(initMovies());
+      console.log("movies init");
+      store.dispatch(initRouteMovies());
+      itemCount = 0;
     }
   }
 
   // Call previously defined hook if there was any
   if (oldHook) {
     oldHook(vnode);
+  }
+};
+*/
+// Store previous hook
+const oldHook2 = options.vnode;
+
+// Set our own options hook
+options.vnode = (vnode) => {
+  if (vnode.type === CollectionItem) {
+    itemCount++;
+    if (ROWS * ITEMS === itemCount) {
+      console.log("movies init");
+      store.dispatch(initRouteMovies());
+      itemCount = 0;
+    }
+  }
+  // Call previously defined hook if there was any
+  if (oldHook2) {
+    oldHook2(vnode);
   }
 };
 
@@ -77,6 +99,10 @@ const CollectionLayout = function ({ collection, index }) {
 
 CollectionLayout.displayName = "CollectionLayout";
 const Movies = memo(({ collections }) => {
+  useEffect(() => {
+    console.log("movies mounted");
+  }, []);
+
   return (
     <div className="movies">
       {collections.map((collection, index) => {

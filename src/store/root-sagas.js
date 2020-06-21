@@ -43,7 +43,7 @@ import {
   removeSelectedClass,
   addSelectedClass,
 } from "../utils";
-import { initMovies, init, configSuccess } from "./general";
+import { initRouteMovies, init, configSuccess, setLoading } from "./general";
 import { getConfig } from "../services/general-service";
 import { SCRAPER_URL, TORRENTS_URL, API_URL, API_KEY } from "../config";
 const GRID_ROW = 0;
@@ -201,7 +201,7 @@ function* doScrollHorizontal({ payload: { row, column, direction } }) {
 }
 
 function* onMovieInit() {
-  yield takeEvery(initMovies().type, doMovieInit);
+  yield takeEvery(initRouteMovies().type, doMovieInit);
 }
 
 function* doMovieInit() {
@@ -241,6 +241,18 @@ function* doInit() {
     );
   }
 }
+
+function* onRouteInit() {
+  yield takeEvery(({ type }) => {
+    return type.indexOf("initRoute") > -1;
+  }, doRouteInit);
+}
+
+function* doRouteInit(action) {
+  console.log("ACTION", action);
+  yield put(setLoading(false));
+}
+
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
@@ -255,5 +267,6 @@ export default function* rootSaga() {
     onHorizontalScrollRequest(),
     onVersionsRequest(),
     onSelectMovie(),
+    onRouteInit(),
   ]);
 }

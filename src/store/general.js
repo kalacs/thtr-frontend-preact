@@ -2,19 +2,29 @@ import autodux from "autodux";
 
 export const {
   reducer,
-  actions: { initMovies, init, configSuccess },
-  selectors: { getConfig },
+  actions: { initRouteMovies, init, configSuccess, setLoading },
+  selectors: { getConfig, getLoading },
 } = autodux({
   // the slice of state your reducer controls
   slice: "general",
 
   // The initial value of your reducer state
   initial: {
+    loading: false,
     config: {},
   },
 
   actions: {
-    initMovies: (state) => ({
+    initRouteMovies: (state) => ({
+      ...state,
+    }),
+    initRouteMovieItemPage: (state) => ({
+      ...state,
+    }),
+    initRouteHome: (state) => ({
+      ...state,
+    }),
+    initRoutePlayer: (state) => ({
       ...state,
     }),
     init: (state) => ({

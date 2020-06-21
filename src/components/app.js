@@ -12,6 +12,8 @@ import MovieItemPage from "../routes/movie";
 import { BUTTON_BACK } from "../config";
 import { useKeyPress } from "../hooks/key-press";
 import Player from "../routes/player";
+import LoadingIndicator from "./loading-indicator";
+import { setLoading } from "../store/general";
 // Must be the first import
 if (process.env.NODE_ENV === "development") {
   // Must use require here as import statements are only allowed
@@ -23,6 +25,7 @@ const noop = () => {};
 const App = memo(() => {
   return (
     <div id="app">
+      <LoadingIndicator />
       <Provider store={store}>
         <Header />
         <Router>
@@ -39,6 +42,7 @@ App.displayName = "App";
 
 export default function AppContainer() {
   useKeyPress("Backspace", noop, () => {
+    store.dispatch(setLoading(true));
     route("/movies", true);
   });
   return <App />;
