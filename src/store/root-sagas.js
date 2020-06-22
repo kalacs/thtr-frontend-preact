@@ -47,7 +47,7 @@ import { initMovies, init, configSuccess } from "./general";
 import { getConfig } from "../services/general-service";
 import { SCRAPER_URL, TORRENTS_URL, API_URL, API_KEY } from "../config";
 const GRID_ROW = 0;
-const ITEM_PER_PAGE = 5;
+const ITEM_PER_PAGE = 6;
 const getItemPosition = (index, perPage) => index % perPage;
 
 function* makeRequest({ payload: { action, id, params } }) {
@@ -165,7 +165,9 @@ function* doSelectPreviousColumn() {
   yield put(selectMovie({ row, column }));
 
   if (position === 4) {
-    yield put(scrollToColumn({ row, column: column - 4, direction: -1 }));
+    yield put(
+      scrollToColumn({ row, column: column - ITEM_PER_PAGE - 1, direction: -1 })
+    );
   }
 }
 

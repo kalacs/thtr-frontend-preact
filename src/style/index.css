@@ -1,14 +1,18 @@
 html,
 body {
   margin: 0;
-  padding: 40px 0 0 0;
+  padding: 0;
   box-sizing: border-box;
   font-family: helvetica;
   background-color: black;
   backface-visibility: hidden;
-  height: 100%;
-  width: 100%;
+  height: 1080px;
+  width: 1920px;
   overflow: hidden;
+}
+
+body {
+  padding: 80px 20px 20px 20px;
 }
 
 * {
@@ -16,6 +20,8 @@ body {
 }
 
 #app {
-  height: 100%;
-  padding: 20px;
+  overflow: hidden;
+  position: absolute;
+  height: 980px;
+  width: 1880px;
 }

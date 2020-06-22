@@ -1,6 +1,6 @@
 .collection-item {
   position: relative;
-  margin-right: 45px;
+  margin-right: 52px;
 
   @media screen and (min-width: 800px) {
     &.selected {
@@ -11,15 +11,15 @@
     &.selected ~ .collection-item {
     }
 
-    &.selected:nth-child(5n + 1) ~ .collection-item {
+    &.selected:nth-child(6n + 1) ~ .collection-item {
     }
 
     &.selected:last-child ~ .collection-item {
     }
 
-    &:nth-child(5n + 1) {
+    &:nth-child(6n + 1) {
     }
-    &:nth-child(5n) {
+    &:nth-child(6n) {
       margin: 0;
     }
 
@@ -30,14 +30,14 @@
       border: 2px solid red;
       z-index: 1;
       border-radius: 10px;
-      margin-right: 41px;
+      margin-right: 48px;
     }
-    &.selected:nth-child(5n + 1) {
+    &.selected:nth-child(6n + 1) {
     }
     &.selected:last-child {
     }
 
-    &.selected:nth-child(5n) {
+    &.selected:nth-child(6n) {
       margin: 0 0 0 -4px;
     }
   }
@@ -45,7 +45,7 @@
   &__movie-image {
     z-index: 1;
     border-radius: 10px;
-    width: 340px;
+    width: 270px;
   }
 
   &__text {
