@@ -19,4 +19,12 @@ npm run serve
 npm run test
 ```
 
-For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
+For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md)
+
+## Roadmap
+1.0.0 version:
+* streaming movies in fhd (1080p) with dlnacast
+* movies view
+* movie detail view
+* settings view
+* search result view
