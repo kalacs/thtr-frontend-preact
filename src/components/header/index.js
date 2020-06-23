@@ -1,37 +1,69 @@
 import { h } from "preact";
-import Logo from "../../assets/images/logo.png";
-import styles from "./style.scss";
-import { connect } from "react-redux";
-import { compose } from "redux";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
+  Grid,
+} from "@material-ui/core";
+import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
+import ControlCameraIcon from "@material-ui/icons/ControlCamera";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    color: "white",
+    "& button": {
+      borderRadius: 20,
+    },
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 const Header = () => {
-  return (
-    <div class={styles.header}>
-      <div class={styles["header__logo-box"]}>
-        <a href="/">
-          <img src={Logo} alt="logo" class={styles.header__logo} />
-        </a>
-      </div>
-      <div class={styles.header__options}>
-        <div class={styles["header__options-primary"]}>
-          <a class={styles.header__option} href="/movies">
-            Movies
-          </a>
-        </div>
+  const classes = useStyles();
 
-        <div class={styles.header__searchbar}> </div>
-      </div>
+  return (
+    <div class={classes.root}>
+      <AppBar position="fixed" color="transparent">
+        <Toolbar>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item xs={1}>
+              <Typography variant="h5" class={classes.title}>
+                <Box letterSpacing={6}>THTR</Box>
+              </Typography>
+            </Grid>
+            <Grid item xs={11}>
+              <Grid direction="row" alignItems="center" container>
+                <Box m={1} component="span">
+                  <Button variant="contained">{"OK"}</Button>
+                </Box>
+                <Typography variant="overline">Select / Play</Typography>
+                <Box m={1} component="span">
+                  <Button variant="contained">
+                    <KeyboardReturnIcon />
+                  </Button>
+                </Box>
+                <Typography variant="overline">Back</Typography>
+                <Box m={1} component="span">
+                  <Button variant="contained">
+                    <ControlCameraIcon />
+                  </Button>
+                </Box>
+                <Typography variant="overline">Navigate</Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  //  currentUser: selectCurrentUser(state),
-  //  hidden: selectToggleHidden(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  //  ToggleMenuHidden: () => dispatch(ToggleMenuHidden()),
-});
-
-export default compose(connect(mapStateToProps, mapDispatchToProps))(Header);
+export default Header;

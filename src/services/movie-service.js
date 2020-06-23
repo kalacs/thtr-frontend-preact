@@ -13,7 +13,7 @@ const getDiscoverUrl = (params, type) => {
   if (params.region) more.push(`region=${params.region}`);
 
   const moreParams = more.length ? `&${more.join("&")}` : "";
-  return `${movieAPIUrl}discover/${type}/?api_key=${movieAPIKey}&language=hu-HU&region=HU&include_adult=false&include_video=false&page=1${moreParams}`;
+  return `${movieAPIUrl}discover/${type}/?api_key=${movieAPIKey}&language=hu-HU&region=HU&include_adult=false&include_video=false&page=1&primary_release_date.lte=${getDate()}${moreParams}`;
 };
 
 const getAdditionalDatadUrl = ({ id, movieAPIKey, movieAPIUrl }, type) =>
@@ -47,3 +47,8 @@ export const getAdditionalData = (params, type = "movie") =>
 export const getVersionsMovieData = (params) => getVersionsData(params);
 export const getVersionsData = (params, type = "movie") =>
   fetch(getVersionsDatadUrl(params, type)).then((response) => response.json());
+
+function getDate() {
+  const now = new Date();
+  return now.toJSON().split("T")[0];
+}

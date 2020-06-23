@@ -26,7 +26,7 @@ import CollectionItem from "../../components/collection/tile/item";
 import { store } from "../../store";
 import { initMovies } from "../../store/general";
 
-const ROWS = 22;
+const ROWS = 18;
 const ITEMS = 10;
 let itemCount = 0;
 // Store previous hook

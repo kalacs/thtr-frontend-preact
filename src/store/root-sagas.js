@@ -171,18 +171,6 @@ function* doSelectPreviousColumn() {
   }
 }
 
-function* makeScrollForwardRequest() {
-  const row = yield select(getSelectedRow);
-  const column = yield select(getSelectedColumn);
-  yield put(scrollToColumn({ row, column, direction: 1 }));
-}
-
-function* makeScrollBackwardRequest() {
-  const row = yield select(getSelectedRow);
-  const column = yield select(getSelectedColumn);
-  yield put(scrollToColumn({ row, column, direction: -1 }));
-}
-
 function* onVerticalScrollRequest() {
   yield takeEvery(scrollToRow().type, doScrollVertical);
 }
@@ -216,7 +204,7 @@ function* onSelectMovie() {
   yield takeEvery(selectMovie().type, doSelectMovie);
 }
 function* doSelectMovie({ payload: { row, column } }) {
-  if (column > -1) {
+  if (column > -1 && row > -1) {
     const node = getDomNode(row, column);
     yield call(removeSelectedClass, row);
     yield put(setSelectedMovie({ id: node.dataset.movieId }));
