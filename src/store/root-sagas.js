@@ -164,9 +164,14 @@ function* doSelectPreviousColumn() {
   const position = getItemPosition(column, ITEM_PER_PAGE);
   yield put(selectMovie({ row, column }));
 
-  if (position === 4) {
+  if (position === ITEM_PER_PAGE - 1) {
+    console.log({ column, ITEM_PER_PAGE });
     yield put(
-      scrollToColumn({ row, column: column - ITEM_PER_PAGE - 1, direction: -1 })
+      scrollToColumn({
+        row,
+        column: column - (ITEM_PER_PAGE - 1),
+        direction: -1,
+      })
     );
   }
 }

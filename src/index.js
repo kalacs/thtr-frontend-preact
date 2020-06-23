@@ -1,4 +1,12 @@
-import './style';
-import App from './components/app';
+import { h } from "preact";
+import "./style";
+import App from "./components/app";
+import { BrowserRouter } from "react-router-dom";
 
-export default App;
+const WithRouter = () => (
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
+
+export default WithRouter;

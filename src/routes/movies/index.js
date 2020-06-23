@@ -25,6 +25,7 @@ import {
 import CollectionItem from "../../components/collection/tile/item";
 import { store } from "../../store";
 import { initMovies } from "../../store/general";
+import { withRouter } from "react-router-dom";
 
 const ROWS = 18;
 const ITEMS = 10;
@@ -52,9 +53,6 @@ const CollectionPreview = lazy(() =>
 );
 
 const noop = () => {};
-const handleEnter = (selectedMovie) => {
-  route(`/movies/${selectedMovie.id}`);
-};
 const CollectionLayout = function ({ collection, index }) {
   const { layout: type, action, id } = collection;
   if (!action) return "";
@@ -76,7 +74,8 @@ const CollectionLayout = function ({ collection, index }) {
 };
 
 CollectionLayout.displayName = "CollectionLayout";
-const Movies = memo(({ collections }) => {
+const Movies = memo((props) => {
+  const { collections } = props;
   return (
     <div className="movies">
       {collections.map((collection, index) => {
@@ -96,24 +95,27 @@ const mapStateToProps = (state) => ({
   collections: getCollections(state),
   selectedMovie: getSelectedMovie(state),
 });
-const MovieContainer = connect(mapStateToProps)((props) => {
-  const bounded = handleEnter.bind(null, props.selectedMovie);
-  const { dispatch } = props;
-  useKeyPress("Enter", noop, bounded);
+const MovieContainer = connect(mapStateToProps)(
+  withRouter((props) => {
+    const { dispatch, history } = props;
+    useKeyPress("Enter", noop, () => {
+      history.push(`/movies/${props.selectedMovie.id}`);
+    });
 
-  useKeyPress(BUTTON_DOWN, noop, () => {
-    dispatch(nextRow());
-  });
-  useKeyPress(BUTTON_UP, noop, () => {
-    dispatch(previousRow());
-  });
-  useKeyPress(BUTTON_LEFT, noop, () => {
-    dispatch(previousColumn());
-  });
-  useKeyPress(BUTTON_RIGHT, noop, () => {
-    dispatch(nextColumn());
-  });
+    useKeyPress(BUTTON_DOWN, noop, () => {
+      dispatch(nextRow());
+    });
+    useKeyPress(BUTTON_UP, noop, () => {
+      dispatch(previousRow());
+    });
+    useKeyPress(BUTTON_LEFT, noop, () => {
+      dispatch(previousColumn());
+    });
+    useKeyPress(BUTTON_RIGHT, noop, () => {
+      dispatch(nextColumn());
+    });
 
-  return <Movies {...props} />;
-});
+    return <Movies collections={props.collections} />;
+  })
+);
 export default MovieContainer;
