@@ -22,7 +22,6 @@ import ItemPageMediaContainer from "../item-page-media";
 import { noop } from "../../utils";
 import { useKeyPress } from "../../hooks/key-press";
 import { getConfig } from "../../store/general";
-import { route } from "preact-router";
 import { setStreamUrl } from "../../store/media";
 
 const toJson = (response) => response.json();

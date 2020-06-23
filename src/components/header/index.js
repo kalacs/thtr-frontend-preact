@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     "& button": {
       borderRadius: 20,
     },
+    "& header": {
+      boxShadow: "none",
+    },
   },
   menuButton: {
     marginRight: theme.spacing(2),

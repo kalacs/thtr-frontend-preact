@@ -15,7 +15,6 @@ import {
   nextColumn,
 } from "../../store/ui";
 import { useKeyPress } from "../../hooks/key-press";
-import { route } from "preact-router";
 import {
   BUTTON_DOWN,
   BUTTON_UP,
