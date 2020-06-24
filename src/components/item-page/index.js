@@ -1,5 +1,13 @@
 import { h } from "preact";
 import { useEffect } from "preact/hooks";
+import { connect } from "react-redux";
+import { Typography, Box, withStyles } from "@material-ui/core";
+import Rating from "@material-ui/lab/Rating";
+import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
+import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
+import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
+import SentimentSatisfiedAltIcon from "@material-ui/icons/SentimentSatisfiedAltOutlined";
+import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 import {
   IMAGE_BASE_URL,
   BACKDROP_SIZE,
@@ -7,9 +15,6 @@ import {
   BUTTON_OK,
 } from "../../config";
 import styles from "./style.scss";
-import { connect } from "react-redux";
-import imdb from "../../assets/images/imdb.png";
-import star from "../../assets/images/star.png";
 import ItemPageFooter from "../item-page-footer";
 import { getAdditionalTVData } from "../../store/TVShow/tv-actions";
 import {
@@ -24,8 +29,44 @@ import { useKeyPress } from "../../hooks/key-press";
 import { getConfig } from "../../store/general";
 import { setStreamUrl } from "../../store/media";
 
-const toJson = (response) => response.json();
+const StyledRating = withStyles({
+  iconEmpty: {
+    color: "#444444",
+  },
+  iconFilled: {
+    color: "rgb(244, 67, 54)",
+  },
+})(Rating);
 
+const customIcons = {
+  1: {
+    icon: <SentimentVeryDissatisfiedIcon style={{ fontSize: 40 }} />,
+    label: "Very Dissatisfied",
+  },
+  2: {
+    icon: <SentimentDissatisfiedIcon style={{ fontSize: 40 }} />,
+    label: "Dissatisfied",
+  },
+  3: {
+    icon: <SentimentSatisfiedIcon style={{ fontSize: 40 }} />,
+    label: "Neutral",
+  },
+  4: {
+    icon: <SentimentSatisfiedAltIcon style={{ fontSize: 40 }} />,
+    label: "Satisfied",
+  },
+  5: {
+    icon: <SentimentVerySatisfiedIcon style={{ fontSize: 40 }} />,
+    label: "Very Satisfied",
+  },
+};
+
+function IconContainer(props) {
+  const { value, ...other } = props;
+  return <span {...other}>{customIcons[Math.ceil(value)].icon}</span>;
+}
+
+const toJson = (response) => response.json();
 const ItemPage = ({ item, movies, tvshow, dispatch, id, appConfig }) => {
   const { title, overview, backdrop_path, poster_path, vote_average } = item;
   const background = `${IMAGE_BASE_URL}${BACKDROP_SIZE}${backdrop_path}`;
@@ -98,25 +139,31 @@ const ItemPage = ({ item, movies, tvshow, dispatch, id, appConfig }) => {
               />
             </div>
             <div class={styles["item__text-box"]}>
-              <h1 class={styles["item__title"]}>{title}</h1>
-              <span class={styles["item__overview"]}>{overview}</span>
-              <div class={styles["item-rating"]}>
-                <img
-                  src={imdb}
-                  alt="imdb"
-                  class={styles["item-rating__imdb"]}
+              <Box mb={3}>
+                <Typography variant="h3">{title}</Typography>
+                <Typography variant="body1" align="justify">
+                  {overview}
+                </Typography>
+              </Box>
+              <Box mb={3}>
+                <Typography variant="h5">Rating</Typography>
+                <StyledRating
+                  name="customized-icons"
+                  defaultValue={(vote_average / 10) * 5}
+                  precision={0.1}
+                  IconContainerComponent={IconContainer}
+                  size="large"
+                  readOnly
                 />
-                <span class={styles["item-rating__rank"]}>{vote_average}/</span>
-                <span class={styles["item-rating__ten"]}>10</span>
-                <img
-                  src={star}
-                  alt="imdb"
-                  class={styles["item-rating__star"]}
-                />
-              </div>
-              <h2 class={styles["item__cast-title"]}>Cast</h2>
-              <ItemPageFooter movies={movies} tvshow={tvshow} item={item} />
-              <ItemPageMediaContainer />
+              </Box>
+              <Box mb={3}>
+                <Typography variant="h5">Cast</Typography>
+                <ItemPageFooter movies={movies} tvshow={tvshow} item={item} />
+              </Box>
+              <Box mb={3}>
+                <Typography variant="h5">Versions</Typography>
+                <ItemPageMediaContainer />
+              </Box>
             </div>
           </div>
         </div>

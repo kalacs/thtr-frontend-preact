@@ -2,27 +2,12 @@ import { h } from "preact";
 import styles from "./style.scss";
 import { connect } from "react-redux";
 import { selectTVCast, selectTVVideos } from "../../store/TVShow/tv-selectors";
-import { faPlay, faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ItemPageCast from "../item-page-cast";
-import { TRAILER_LINK } from "../../config";
 import { addItem, removeItem } from "../../store/List/list-actions";
 import { selectListItems } from "../../store/List/list-selectors";
 import { getMovieCast, getMovieVideos } from "../../store/movie";
 
-const ItemPageFooter = ({
-  item,
-  movieCast,
-  movieVideos,
-  addItem,
-  removeItem,
-  tvCast,
-  tvVideos,
-  movies,
-  tvshow,
-  listItems,
-}) => {
-  const existingItem = listItems.filter((listItem) => listItem.id === item.id);
+const ItemPageFooter = ({ movieCast, tvCast, movies, tvshow }) => {
   return (
     <div class={styles["item-page-footer"]}>
       <div class={styles["item-page-footer__container"]}>
@@ -52,47 +37,6 @@ const ItemPageFooter = ({
                 ) : null
               )
           : null}
-      </div>
-
-      <div class={styles["item-page-footer__btn-container"]}>
-        {existingItem.length ? (
-          <button
-            class={styles["item-page-footer__btn"]}
-            onClick={() => removeItem(item)}
-          >
-            <FontAwesomeIcon
-              icon={faCheck}
-              class={styles["item-page-footer__icon"]}
-            />
-            Added To List
-          </button>
-        ) : (
-          <button
-            class={styles["item-page-footer__btn"]}
-            onClick={() => addItem(item)}
-          >
-            <FontAwesomeIcon
-              icon={faPlus}
-              class={styles["item-page-footer__icon"]}
-            />
-            My List
-          </button>
-        )}
-
-        <button
-          onClick={() => {
-            return movies
-              ? window.open(`${TRAILER_LINK}${movieVideos}`, "_blank")
-              : window.open(`${TRAILER_LINK}${tvVideos}`, "_blank");
-          }}
-          class={styles["item-page-footer__btn"]}
-        >
-          <FontAwesomeIcon
-            icon={faPlay}
-            class={styles["item-page-footer__icon"]}
-          />
-          Watch Trailer
-        </button>
       </div>
     </div>
   );

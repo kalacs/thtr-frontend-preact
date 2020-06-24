@@ -1,5 +1,8 @@
-import { h } from "preact";
+import { h, Fragment } from "preact";
 import { useEffect } from "preact/hooks";
+import { Box } from "@material-ui/core";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import ToggleButton from "@material-ui/lab/ToggleButton";
 import styles from "./style.scss";
 import { connect } from "react-redux";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
@@ -34,34 +37,25 @@ const ItemPageMedia = ({ versions = new Map() }) => {
     .map(([_, value]) => value)
     .filter((value) => !!value);
   return (
-    <div
-      class={classNames(styles["item-page-footer"], styles["item-page-media"])}
-    >
-      <div class={styles["item-page-footer__btn-container"]}>
+    <Fragment>
+      <ToggleButtonGroup size="large">
         {availableVersions.map(({ language, quality, id }, index) => {
           const combination = `${language}-${quality}`;
           return (
-            <button
+            <ToggleButton
+              color="secondary"
               key={index}
-              class={classNames(
-                styles["item-page-footer__btn"],
-                styles["item-page-media__btn"],
-                {
-                  selected: preferredVersion === combination,
-                }
-              )}
               data-torrent-id={id}
+              disableRipple
+              variant="outlined"
+              selected={preferredVersion === combination}
             >
-              <FontAwesomeIcon
-                icon={faPlay}
-                class={styles["item-page-footer__icon"]}
-              />
               {`${quality} - ${language}`}
-            </button>
+            </ToggleButton>
           );
         })}
-      </div>
-    </div>
+      </ToggleButtonGroup>
+    </Fragment>
   );
 };
 const WithSpinnerItemPageMedia = enhance(ItemPageMedia);
