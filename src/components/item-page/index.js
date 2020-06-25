@@ -8,12 +8,7 @@ import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied"
 import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
 import SentimentSatisfiedAltIcon from "@material-ui/icons/SentimentSatisfiedAltOutlined";
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
-import {
-  IMAGE_BASE_URL,
-  BACKDROP_SIZE,
-  POSTER_SIZE,
-  BUTTON_OK,
-} from "../../config";
+import { IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from "../../config";
 import styles from "./style.scss";
 import ItemPageFooter from "../item-page-footer";
 import { getAdditionalTVData } from "../../store/TVShow/tv-actions";
@@ -24,10 +19,7 @@ import {
   getAdditionalData,
 } from "../../store/movie";
 import ItemPageMediaContainer from "../item-page-media";
-import { noop } from "../../utils";
-import { useKeyPress } from "../../hooks/key-press";
 import { getConfig } from "../../store/general";
-import { setStreamUrl } from "../../store/media";
 
 const StyledRating = withStyles({
   iconEmpty: {
@@ -66,12 +58,10 @@ function IconContainer(props) {
   return <span {...other}>{customIcons[Math.ceil(value)].icon}</span>;
 }
 
-const toJson = (response) => response.json();
 const ItemPage = ({ item, movies, tvshow, dispatch, id, appConfig }) => {
   const { title, overview, backdrop_path, poster_path, vote_average } = item;
   const background = `${IMAGE_BASE_URL}${BACKDROP_SIZE}${backdrop_path}`;
   const poster = `${IMAGE_BASE_URL}${POSTER_SIZE}${poster_path}`;
-  const { torrentsUrl, playMode } = appConfig;
 
   useEffect(() => {
     movies
@@ -83,43 +73,6 @@ const ItemPage = ({ item, movies, tvshow, dispatch, id, appConfig }) => {
         )
       : this.props.dispatch(getAdditionalTVData(id));
   }, [dispatch, movies, id, appConfig]);
-
-  useKeyPress(BUTTON_OK, noop, () => {
-    // get selected version
-    const button = document.querySelector("button.selected[data-torrent-id]");
-    const id = button.dataset.torrentId;
-    // TODO refactor
-    if (id) {
-      // request stream server
-      fetch(torrentsUrl, {
-        method: "POST",
-        mode: "cors",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ id }),
-      })
-        .then(toJson)
-        .then(({ infoHash }) => {
-          const startServer = fetch(`${torrentsUrl}/${infoHash}/server`);
-
-          if (playMode === "on-tv") {
-            startServer.then(toJson).then(({ url }) =>
-              fetch(`${torrentsUrl}/dlnacast`, {
-                method: "POST",
-                mode: "cors",
-                headers: { "Content-type": "application/json" },
-                body: JSON.stringify({ url: `http://${url}` }),
-              })
-            );
-          } else {
-            startServer.then(toJson).then((streamServer) => {
-              console.log(streamServer);
-              dispatch(setStreamUrl(`http://${streamServer.url}`));
-              route("/player");
-            });
-          }
-        });
-    }
-  });
 
   return (
     <div class={styles["item-page"]}>
@@ -149,7 +102,7 @@ const ItemPage = ({ item, movies, tvshow, dispatch, id, appConfig }) => {
                 <Typography variant="h5">Rating</Typography>
                 <StyledRating
                   name="customized-icons"
-                  defaultValue={(vote_average / 10) * 5}
+                  value={(vote_average / 10) * 5}
                   precision={0.1}
                   IconContainerComponent={IconContainer}
                   size="large"

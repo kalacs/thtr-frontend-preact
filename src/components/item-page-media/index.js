@@ -38,14 +38,14 @@ const ItemPageMedia = ({ versions = new Map() }) => {
     .filter((value) => !!value);
   return (
     <Fragment>
-      <ToggleButtonGroup size="large">
+      <ToggleButtonGroup size="large" aria-label="versions">
         {availableVersions.map(({ language, quality, id }, index) => {
           const combination = `${language}-${quality}`;
           return (
             <ToggleButton
               color="secondary"
               key={index}
-              data-torrent-id={id}
+              value={id}
               disableRipple
               variant="outlined"
               selected={preferredVersion === combination}
