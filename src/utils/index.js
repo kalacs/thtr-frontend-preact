@@ -59,3 +59,4 @@ export const addSelectedClass = (row, column) => {
 };
 
 export const noop = () => {};
+export const toJson = (response) => response.json();

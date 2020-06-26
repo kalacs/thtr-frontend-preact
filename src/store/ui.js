@@ -41,7 +41,7 @@ export const {
     }),
     previousRow: (state) => ({
       ...state,
-      currentRow: state.currentRow - 1,
+      currentRow: state.currentRow - 1 > -1 ? state.currentRow - 1 : 0,
     }),
     nextColumn: (state) => {
       const newItemPositions = state.itemPositions.slice();

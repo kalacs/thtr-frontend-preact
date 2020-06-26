@@ -47,7 +47,7 @@ import { initMovies, init, configSuccess } from "./general";
 import { getConfig } from "../services/general-service";
 import { SCRAPER_URL, TORRENTS_URL, API_URL, API_KEY } from "../config";
 const GRID_ROW = 0;
-const ITEM_PER_PAGE = 5;
+const ITEM_PER_PAGE = 6;
 const getItemPosition = (index, perPage) => index % perPage;
 
 function* makeRequest({ payload: { action, id, params } }) {
@@ -164,21 +164,16 @@ function* doSelectPreviousColumn() {
   const position = getItemPosition(column, ITEM_PER_PAGE);
   yield put(selectMovie({ row, column }));
 
-  if (position === 4) {
-    yield put(scrollToColumn({ row, column: column - 4, direction: -1 }));
+  if (position === ITEM_PER_PAGE - 1) {
+    console.log({ column, ITEM_PER_PAGE });
+    yield put(
+      scrollToColumn({
+        row,
+        column: column - (ITEM_PER_PAGE - 1),
+        direction: -1,
+      })
+    );
   }
-}
-
-function* makeScrollForwardRequest() {
-  const row = yield select(getSelectedRow);
-  const column = yield select(getSelectedColumn);
-  yield put(scrollToColumn({ row, column, direction: 1 }));
-}
-
-function* makeScrollBackwardRequest() {
-  const row = yield select(getSelectedRow);
-  const column = yield select(getSelectedColumn);
-  yield put(scrollToColumn({ row, column, direction: -1 }));
 }
 
 function* onVerticalScrollRequest() {
@@ -214,7 +209,7 @@ function* onSelectMovie() {
   yield takeEvery(selectMovie().type, doSelectMovie);
 }
 function* doSelectMovie({ payload: { row, column } }) {
-  if (column > -1) {
+  if (column > -1 && row > -1) {
     const node = getDomNode(row, column);
     yield call(removeSelectedClass, row);
     yield put(setSelectedMovie({ id: node.dataset.movieId }));

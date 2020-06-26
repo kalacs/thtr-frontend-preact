@@ -170,46 +170,6 @@ export const INITIAL_STATE = [
       sort_by: "release_date.desc",
     },
   },
-  {
-    id: 10402,
-    title: "Zenei",
-    layout: "tile",
-    action: "getMoviesByGenre",
-    params: {
-      genres: [10402],
-      sort_by: "release_date.desc",
-    },
-  },
-  {
-    id: 10752,
-    title: "Háborús",
-    layout: "tile",
-    action: "getMoviesByGenre",
-    params: {
-      genres: [10752],
-      sort_by: "release_date.desc",
-    },
-  },
-  {
-    id: 37,
-    title: "Western",
-    layout: "tile",
-    action: "getMoviesByGenre",
-    params: {
-      genres: [37],
-      sort_by: "release_date.desc",
-    },
-  },
-  {
-    id: 10770,
-    title: "TV film",
-    layout: "tile",
-    action: "getMoviesByGenre",
-    params: {
-      genres: [10770],
-      sort_by: "release_date.desc",
-    },
-  },
 ];
 
 export const {

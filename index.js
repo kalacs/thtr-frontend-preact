@@ -9,6 +9,10 @@ module.exports = function (config) {
   const staticHandler = async (request, response) => {
     return await handler(request, response, {
       public: `${__dirname}/build`,
+      rewrites: [
+        { source: "/movies/:id", destination: `/index.html` },
+        { source: "/movies", destination: `/index.html` },
+      ],
     });
   };
 

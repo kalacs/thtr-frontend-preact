@@ -1,6 +1,6 @@
 import { h } from "preact";
 import { memo } from "preact/compat";
-import { Router, route } from "preact-router";
+import { Route, useHistory } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "../store";
 
@@ -9,7 +9,7 @@ import Header from "./header";
 // Code-splitting is automated for routes
 import Movies from "../routes/movies";
 import MovieItemPage from "../routes/movie";
-import { BUTTON_BACK } from "../config";
+import { BUTTON_BACK, BUTTON_RED } from "../config";
 import { useKeyPress } from "../hooks/key-press";
 import Player from "../routes/player";
 // Must be the first import
@@ -25,12 +25,13 @@ const App = memo(() => {
     <div id="app">
       <Provider store={store}>
         <Header />
-        <Router>
-          <Movies path="/" />
-          <Movies path="/movies" />
-          <MovieItemPage path="/movies/:id" />
-          <Player path="/player" />
-        </Router>
+        <Route path="/" render={() => <Movies />} />
+        <Route
+          path="/movies/:id"
+          render={({ match }) => <MovieItemPage match={match} />}
+        />
+        <Route path="/movies" render={() => <Movies />} exact />
+        <Route path="/player" component={Player} />
       </Provider>
     </div>
   );
@@ -38,8 +39,14 @@ const App = memo(() => {
 App.displayName = "App";
 
 export default function AppContainer() {
-  useKeyPress("Backspace", noop, () => {
-    route("/movies", true);
+  const history = useHistory();
+  useKeyPress(BUTTON_BACK, noop, () => {
+    history.goBack();
   });
+
+  useKeyPress(BUTTON_RED, noop, () => {
+    window.location.reload();
+  });
+
   return <App />;
 }

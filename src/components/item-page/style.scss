@@ -26,8 +26,9 @@
 
     &__outer {
       background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
-      margin-top: 200px;
-      height: 700px;
+      border-radius: 5px;
+      margin-top: 120px;
+      height: 850px;
       width: 1500px;
       position: absolute;
       top: 0;
@@ -60,7 +61,8 @@
 
     &__poster-img {
       width: auto;
-      height: 700px;
+      border-radius: 5px;
+      height: 850px;
       filter: brightness(105%);
       filter: contrast(110%);
 
