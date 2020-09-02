@@ -1,60 +1,114 @@
 <script>
-	export let segment;
+  import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
+  import Button from "@smui/button";
+  import Grid from "./mui/Grid.svelte";
+  import Toolbar from "./mui/Toolbar.svelte";
+  import Typography from "./mui/Typography.svelte";
+  import Box from "./mui/Box.svelte";
+  import ButtonLabelGrid from "./mui/ButtonLabelGrid.svelte";
+  import GreenButton from "./buttons/GreenButton.svelte";
+  import RedButton from "./buttons/RedButton.svelte";
+  import IconButton, { Icon } from "@smui/icon-button";
+
+  export let segment;
 </script>
 
-<style>
-	nav {
-		border-bottom: 1px solid rgba(255,62,0,0.1);
-		font-weight: 300;
-		padding: 0 1em;
-	}
-
-	ul {
-		margin: 0;
-		padding: 0;
-	}
-
-	/* clearfix */
-	ul::after {
-		content: '';
-		display: block;
-		clear: both;
-	}
-
-	li {
-		display: block;
-		float: left;
-	}
-
-	[aria-current] {
-		position: relative;
-		display: inline-block;
-	}
-
-	[aria-current]::after {
-		position: absolute;
-		content: '';
-		width: calc(100% - 1em);
-		height: 2px;
-		background-color: rgb(255,62,0);
-		display: block;
-		bottom: -1px;
-	}
-
-	a {
-		text-decoration: none;
-		padding: 1em 0.5em;
-		display: block;
-	}
+<style lang="scss">
+  .navigation {
+    color: white;
+    flex-grow: 1;
+  }
+  .navigation :global(header) {
+    background-color: var(--mdc-theme-primary, transparent);
+    top: 0;
+    left: auto;
+    right: 0;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    z-index: 1100;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    flex-direction: column;
+  }
 </style>
 
-<nav>
-	<ul>
-		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">home</a></li>
-		<li><a aria-current="{segment === 'about' ? 'page' : undefined}" href="about">about</a></li>
-
-		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
-		     the blog data when we hover over the link or tap it on a touchscreen -->
-		<li><a rel=prefetch aria-current="{segment === 'blog' ? 'page' : undefined}" href="blog">blog</a></li>
-	</ul>
-</nav>
+<div class="navigation">
+  <TopAppBar variant="fixed" dense>
+    <Toolbar>
+      <Grid item xs={1}>
+        <Typography variant="h5" class="title">
+          <Box letterSpacing={6}>THTR</Box>
+        </Typography>
+      </Grid>
+      <Grid item xs={11}>
+        <Grid
+          direction="row"
+          alignItems="center"
+          container
+          justify="flex-start"
+          spacing={3}
+          class="control-buttons">
+          <Grid item>
+            <Grid direction="column" alignItems="center" container>
+              <Grid item>
+                <Button variant="contained" size="small">{'OK'}</Button>
+              </Grid>
+              <ButtonLabelGrid item>
+                <Typography variant="overline">Select / Play</Typography>
+              </ButtonLabelGrid>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Grid direction="column" alignItems="center" container>
+              <Grid item>
+                <Button variant="contained" size="small">
+                  <IconButton>keyboard_return</IconButton>
+                </Button>
+              </Grid>
+              <ButtonLabelGrid item>
+                <Typography variant="overline">Back</Typography>
+              </ButtonLabelGrid>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Grid direction="column" alignItems="center" container>
+              <Grid item>
+                <Button variant="contained" size="small">
+                  <IconButton>control_camera</IconButton>
+                </Button>
+              </Grid>
+              <ButtonLabelGrid item>
+                <Typography variant="overline">Navigate</Typography>
+              </ButtonLabelGrid>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Grid direction="column" alignItems="center" container>
+              <Grid item>
+                <RedButton variant="contained" size="small">
+                  <IconButton>fiber_manual</IconButton>
+                </RedButton>
+              </Grid>
+              <ButtonLabelGrid item>
+                <Typography variant="overline">Refresh</Typography>
+              </ButtonLabelGrid>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Grid direction="column" alignItems="center" container>
+              <Grid item>
+                <GreenButton variant="contained" size="small">
+                  <IconButton>fiber_manual_record</IconButton>
+                </GreenButton>
+              </Grid>
+              <ButtonLabelGrid item>
+                <Typography variant="overline">Change</Typography>
+              </ButtonLabelGrid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Toolbar>
+  </TopAppBar>
+</div>
