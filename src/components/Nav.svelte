@@ -36,75 +36,77 @@
 <div class="navigation">
   <TopAppBar variant="fixed" dense>
     <Toolbar>
-      <Grid item xs={1}>
-        <Typography variant="h5" class="title">
-          <Box letterSpacing={6}>THTR</Box>
-        </Typography>
-      </Grid>
-      <Grid item xs={11}>
-        <Grid
-          direction="row"
-          alignItems="center"
-          container
-          justify="flex-start"
-          spacing={3}
-          class="control-buttons">
-          <Grid item>
-            <Grid direction="column" alignItems="center" container>
-              <Grid item>
-                <Button variant="contained" size="small">{'OK'}</Button>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Grid item xs={1}>
+          <Typography variant="h5" class="title">
+            <Box letterSpacing={6}>THTR</Box>
+          </Typography>
+        </Grid>
+        <Grid item xs={11}>
+          <Grid
+            direction="row"
+            alignItems="center"
+            container
+            justify="flex-start"
+            spacing={3}
+            class="control-buttons">
+            <Grid item>
+              <Grid direction="column" alignItems="center" container>
+                <Grid item>
+                  <Button variant="contained" size="small">{'OK'}</Button>
+                </Grid>
+                <ButtonLabelGrid item>
+                  <Typography variant="overline">Select / Play</Typography>
+                </ButtonLabelGrid>
               </Grid>
-              <ButtonLabelGrid item>
-                <Typography variant="overline">Select / Play</Typography>
-              </ButtonLabelGrid>
             </Grid>
-          </Grid>
-          <Grid item>
-            <Grid direction="column" alignItems="center" container>
-              <Grid item>
-                <Button variant="contained" size="small">
-                  <IconButton>keyboard_return</IconButton>
-                </Button>
+            <Grid item>
+              <Grid direction="column" alignItems="center" container>
+                <Grid item>
+                  <Button variant="contained" size="small">
+                    <IconButton>keyboard_return</IconButton>
+                  </Button>
+                </Grid>
+                <ButtonLabelGrid item>
+                  <Typography variant="overline">Back</Typography>
+                </ButtonLabelGrid>
               </Grid>
-              <ButtonLabelGrid item>
-                <Typography variant="overline">Back</Typography>
-              </ButtonLabelGrid>
             </Grid>
-          </Grid>
-          <Grid item>
-            <Grid direction="column" alignItems="center" container>
-              <Grid item>
-                <Button variant="contained" size="small">
-                  <IconButton>control_camera</IconButton>
-                </Button>
+            <Grid item>
+              <Grid direction="column" alignItems="center" container>
+                <Grid item>
+                  <Button variant="contained" size="small">
+                    <IconButton>control_camera</IconButton>
+                  </Button>
+                </Grid>
+                <ButtonLabelGrid item>
+                  <Typography variant="overline">Navigate</Typography>
+                </ButtonLabelGrid>
               </Grid>
-              <ButtonLabelGrid item>
-                <Typography variant="overline">Navigate</Typography>
-              </ButtonLabelGrid>
             </Grid>
-          </Grid>
-          <Grid item>
-            <Grid direction="column" alignItems="center" container>
-              <Grid item>
-                <RedButton variant="contained" size="small">
-                  <IconButton>fiber_manual</IconButton>
-                </RedButton>
+            <Grid item>
+              <Grid direction="column" alignItems="center" container>
+                <Grid item>
+                  <RedButton variant="contained" size="small">
+                    <IconButton>fiber_manual</IconButton>
+                  </RedButton>
+                </Grid>
+                <ButtonLabelGrid item>
+                  <Typography variant="overline">Refresh</Typography>
+                </ButtonLabelGrid>
               </Grid>
-              <ButtonLabelGrid item>
-                <Typography variant="overline">Refresh</Typography>
-              </ButtonLabelGrid>
             </Grid>
-          </Grid>
-          <Grid item>
-            <Grid direction="column" alignItems="center" container>
-              <Grid item>
-                <GreenButton variant="contained" size="small">
-                  <IconButton>fiber_manual_record</IconButton>
-                </GreenButton>
+            <Grid item>
+              <Grid direction="column" alignItems="center" container>
+                <Grid item>
+                  <GreenButton variant="contained" size="small">
+                    <IconButton>fiber_manual_record</IconButton>
+                  </GreenButton>
+                </Grid>
+                <ButtonLabelGrid item>
+                  <Typography variant="overline">Change</Typography>
+                </ButtonLabelGrid>
               </Grid>
-              <ButtonLabelGrid item>
-                <Typography variant="overline">Change</Typography>
-              </ButtonLabelGrid>
             </Grid>
           </Grid>
         </Grid>
