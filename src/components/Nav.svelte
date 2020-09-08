@@ -31,6 +31,13 @@
     flex-shrink: 0;
     flex-direction: column;
   }
+  .navigation :global(h5.title) {
+    letter-spacing: 6px;
+  }
+  .navigation :global(.button-label) {
+    top: 50px;
+    position: absolute;
+  }
 </style>
 
 <div class="navigation">
@@ -38,9 +45,7 @@
     <Toolbar>
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={1}>
-          <Typography variant="h5" class="title">
-            <Box letterSpacing={6}>THTR</Box>
-          </Typography>
+          <Typography variant="h5" class="title">THTR</Typography>
         </Grid>
         <Grid item xs={11}>
           <Grid
@@ -48,16 +53,15 @@
             alignItems="center"
             container
             justify="flex-start"
-            spacing={3}
-            class="control-buttons">
+            spacing={3}>
             <Grid item>
               <Grid direction="column" alignItems="center" container>
                 <Grid item>
                   <Button variant="contained" size="small">{'OK'}</Button>
                 </Grid>
-                <ButtonLabelGrid item>
+                <Grid item class="button-label">
                   <Typography variant="overline">Select / Play</Typography>
-                </ButtonLabelGrid>
+                </Grid>
               </Grid>
             </Grid>
             <Grid item>
@@ -67,9 +71,9 @@
                     <IconButton>keyboard_return</IconButton>
                   </Button>
                 </Grid>
-                <ButtonLabelGrid item>
+                <Grid item class="button-label">
                   <Typography variant="overline">Back</Typography>
-                </ButtonLabelGrid>
+                </Grid>
               </Grid>
             </Grid>
             <Grid item>
@@ -79,9 +83,9 @@
                     <IconButton>control_camera</IconButton>
                   </Button>
                 </Grid>
-                <ButtonLabelGrid item>
+                <Grid item class="button-label">
                   <Typography variant="overline">Navigate</Typography>
-                </ButtonLabelGrid>
+                </Grid>
               </Grid>
             </Grid>
             <Grid item>
@@ -91,9 +95,9 @@
                     <IconButton>fiber_manual</IconButton>
                   </RedButton>
                 </Grid>
-                <ButtonLabelGrid item>
+                <Grid item class="button-label">
                   <Typography variant="overline">Refresh</Typography>
-                </ButtonLabelGrid>
+                </Grid>
               </Grid>
             </Grid>
             <Grid item>
@@ -103,9 +107,9 @@
                     <IconButton>fiber_manual_record</IconButton>
                   </GreenButton>
                 </Grid>
-                <ButtonLabelGrid item>
+                <Grid item class="button-label">
                   <Typography variant="overline">Change</Typography>
-                </ButtonLabelGrid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>

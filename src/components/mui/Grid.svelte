@@ -1,17 +1,13 @@
 <script>
+  import { createClass, stripTemplate } from "../../utils/class";
+
   export let item = false;
   export let container = false;
   export let direction = "row";
-  export let justify;
-  export let alignItems;
+  export let justify = "flex-start";
+  export let alignItems = "stretch";
   export let xs = 0;
   export let spacing = 0;
-
-  const stripTemplate = (parts) => parts;
-  const combineArray = (base, other) =>
-    base.map((item, index) => `${item}${other[index] || ""}`).join("");
-  const createClass = (condition, templateParts, params) =>
-    condition ? combineArray(templateParts, params) : "";
 
   const containerClass = createClass(
     container,
@@ -50,6 +46,7 @@
     xsClass,
     spacingClass,
     directionClass,
+    $$props.class,
   ];
 </script>
 
@@ -93,6 +90,10 @@
 
   .mui-grid-direction-xs-column {
     flex-direction: column;
+  }
+
+  .mui-grid-spacing-xs-3 > :global(.mui-grid-item) {
+    padding: 12px;
   }
 </style>
 
