@@ -27,7 +27,7 @@
 
   :global(.mui-typography-h5) {
     font-size: 1.5rem;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: "Helvetica", "Arial", sans-serif;
     font-weight: 400;
     line-height: 1.334;
     letter-spacing: 0em;
@@ -35,7 +35,7 @@
 
   :global(.mui-typography-overline) {
     font-size: 0.75rem;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: "Helvetica", "Arial", sans-serif;
     font-weight: 400;
     line-height: 2.66;
     letter-spacing: 0.08333em;

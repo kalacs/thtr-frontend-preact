@@ -1,12 +1,13 @@
 <style lang="scss">
-  @media (min-width: 600px) {
-    .mui-toolbar-regular {
-      min-height: 64px;
-    }
-    .mui-toolbar-gutters {
-      padding-left: 24px;
-      padding-right: 24px;
-    }
+  .mui-toolbar-gutters {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .mui-toolbar-root {
+    display: flex;
+    position: relative;
+    align-items: center;
   }
 
   @media (min-width: 0px) and (orientation: landscape) {
@@ -19,15 +20,14 @@
     min-height: 56px;
   }
 
-  .mui-toolbar-gutters {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .mui-toolbar-root {
-    display: flex;
-    position: relative;
-    align-items: center;
+  @media (min-width: 600px) {
+    .mui-toolbar-regular {
+      min-height: 64px;
+    }
+    .mui-toolbar-gutters {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
   }
 </style>
 

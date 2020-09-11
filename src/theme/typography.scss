@@ -1,12 +1,13 @@
 //
 // MDC Typography
 //
-@import "@material/typography/mdc-typography";
+@import "@material/typography/mixins";
 //
 // Some defaults that may be helpful to you.
 // If you just want to use these, and not the classes, you can instead import
 // "@material/typography/mixins", and your CSS file will be smaller.
 //
+/*
 html {
   @include mdc-typography("body1");
 }
@@ -56,3 +57,4 @@ b,
 strong {
   font-weight: bold;
 }
+*/

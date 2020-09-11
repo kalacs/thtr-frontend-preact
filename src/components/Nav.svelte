@@ -1,6 +1,5 @@
 <script>
   import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
-  import Button from "@smui/button";
   import Grid from "./mui/Grid.svelte";
   import Toolbar from "./mui/Toolbar.svelte";
   import Typography from "./mui/Typography.svelte";
@@ -9,6 +8,7 @@
   import GreenButton from "./buttons/GreenButton.svelte";
   import RedButton from "./buttons/RedButton.svelte";
   import IconButton, { Icon } from "@smui/icon-button";
+  import Button from "./buttons/Button.svelte";
 
   export let segment;
 </script>
@@ -37,6 +37,20 @@
   .navigation :global(.button-label) {
     top: 50px;
     position: absolute;
+  }
+
+  .navigation :global(button) {
+    border-radius: 20px;
+  }
+
+  .navigation :global(.green-button) {
+    background-color: green;
+    color: green;
+  }
+
+  .navigation :global(.red-button) {
+    background-color: red;
+    color: red;
   }
 </style>
 
@@ -68,7 +82,7 @@
               <Grid direction="column" alignItems="center" container>
                 <Grid item>
                   <Button variant="contained" size="small">
-                    <IconButton>keyboard_return</IconButton>
+                    <Icon class="material-icons">keyboard_return</Icon>
                   </Button>
                 </Grid>
                 <Grid item class="button-label">
@@ -80,7 +94,7 @@
               <Grid direction="column" alignItems="center" container>
                 <Grid item>
                   <Button variant="contained" size="small">
-                    <IconButton>control_camera</IconButton>
+                    <Icon class="material-icons">control_camera</Icon>
                   </Button>
                 </Grid>
                 <Grid item class="button-label">
@@ -91,9 +105,9 @@
             <Grid item>
               <Grid direction="column" alignItems="center" container>
                 <Grid item>
-                  <RedButton variant="contained" size="small">
-                    <IconButton>fiber_manual</IconButton>
-                  </RedButton>
+                  <Button variant="contained" size="small" class="red-button">
+                    {'.'}
+                  </Button>
                 </Grid>
                 <Grid item class="button-label">
                   <Typography variant="overline">Refresh</Typography>
@@ -103,9 +117,9 @@
             <Grid item>
               <Grid direction="column" alignItems="center" container>
                 <Grid item>
-                  <GreenButton variant="contained" size="small">
-                    <IconButton>fiber_manual_record</IconButton>
-                  </GreenButton>
+                  <Button variant="contained" size="small" class="green-button">
+                    {'.'}
+                  </Button>
                 </Grid>
                 <Grid item class="button-label">
                   <Typography variant="overline">Change</Typography>
