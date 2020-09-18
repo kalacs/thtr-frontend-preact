@@ -2,12 +2,16 @@
   import { createClass, stripTemplate } from "../../utils/class";
   import { capitalize } from "../../utils/string";
   import Box from "./Box.svelte";
+  import H1 from "./typography/H1.svelte";
+  import H2 from "./typography/H2.svelte";
   import H5 from "./typography/H5.svelte";
   import Overline from "./typography/Overline.svelte";
 
   export let variant = "body1";
 
   const components = {
+    H1,
+    H2,
     H5,
     Overline,
   };
