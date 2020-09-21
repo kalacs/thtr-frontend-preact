@@ -1,0 +1,15 @@
+{
+  "frontend": {
+    "scraperUrl": "http://192.168.0.124:3000/scraper",
+    "torrentsUrl": "http://192.168.0.124:3000/torrents",
+    "streamServerUrl": "http://192.168.0.124:3000/stream-server",
+    "movieAPIUrl": "https://api.themoviedb.org/3/",
+    "movieAPIKey": "9f1ffd64abd4bde18614fd9087d87d71",
+    "playMode": "on-tv",
+    "debugMode": false
+  },
+  "backend": {
+    "port": 8080,
+    "host": "192.168.0.124"
+  }
+}
