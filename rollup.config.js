@@ -118,6 +118,7 @@ export default {
       }),
       commonjs(),
       postcss(postcssOptions()),
+      json(),
     ],
     external: Object.keys(pkg.dependencies).concat(
       require("module").builtinModules
