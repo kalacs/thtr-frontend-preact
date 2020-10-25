@@ -1,10 +1,32 @@
 <script>
+  import { onMount } from "svelte";
   import Typography from "./mui/Typography.svelte";
   import MovieCollectionItem from "../components/MovieCollectionItem.svelte";
+  import { requestCollectionData } from "../state/collections";
+  import getTrackedState from "../state";
+  import { getFrontendConfig, getCollectionData } from "../state/general";
+
+  const state = getTrackedState();
+  let movies;
+  let appConfig;
+  $: movies = getCollectionData($state, id);
+  $: appConfig = getFrontendConfig($state);
+
+  onMount(() => {
+    state.dispatch(
+      requestCollectionData({
+        id,
+        action,
+        params: Object.assign({}, params, appConfig),
+      })
+    );
+  });
 
   export let index;
   export let id;
   export let title;
+  export let action;
+  export let params;
 </script>
 
 <style>
@@ -30,6 +52,6 @@
 <div data-focus-row={index} id={`collection-${id}`}>
   <div class="collection-tile">
     <Typography variant="h2" class="title">{title}</Typography>
-    <MovieCollectionItem {...$$props} class="inner" />
+    <MovieCollectionItem {movies} />
   </div>
 </div>

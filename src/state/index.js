@@ -11,7 +11,6 @@ let composeEnhancers = compose;
 
 try {
   if (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-    console.log(window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__);
     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
   }
 } catch (error) {

@@ -9,7 +9,6 @@ import {
 } from "redux-saga/effects";
 import {
   requestCollectionData,
-  collectionDataSuccess,
   collectionDataFailed,
   setCollectionDataIsFetching,
 } from "./collections";
@@ -43,7 +42,12 @@ import {
   removeSelectedClass,
   addSelectedClass,
 } from "../utils";
-import { initMovies, init, configSuccess } from "./general";
+import {
+  initMovies,
+  init,
+  configSuccess,
+  collectionDataSuccess
+} from "./general";
 import { getConfig } from "../services/general-service";
 import { SCRAPER_URL, TORRENTS_URL, API_URL, API_KEY } from "../config/index";
 const GRID_ROW = 0;

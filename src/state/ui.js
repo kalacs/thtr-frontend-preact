@@ -1,5 +1,4 @@
 import autodux from "autodux";
-import { INITIAL_STATE } from "./collections";
 
 export const {
   reducer,
@@ -22,7 +21,7 @@ export const {
   // The initial value of your reducer state
   initial: {
     currentRow: 0,
-    itemPositions: INITIAL_STATE.map(() => 0),
+    itemPositions: [].map(() => 0),
     selectedMovie: null,
   },
 
