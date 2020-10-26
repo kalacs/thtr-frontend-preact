@@ -26,21 +26,13 @@ export const scrollColumn = (row, direction) => {
     });
   }
 };
-export const getDomNode = (row, column) =>
-  document.querySelector(
-    `div[data-focus-row='${row}'] div[data-focus-column='${column}']`
-  );
+export const getDomNode = (row, column) => document.querySelector(`div[data-focus-row='${row}'] div[data-focus-column='${column}']`);
 
 export const removeSelectedClass = (row) => {
   document
     .querySelectorAll(`div[data-focus-row='${row}'] div[data-focus-column]`)
     .forEach((domNode) => {
-      const classList = domNode.classList;
-      const classes = Array.from(classList.values());
-
-      if (classes.length > 1) {
-        domNode.classList.remove(classes.pop());
-      }
+      domNode.dataset.focusActive='0';
     });
 };
 
@@ -50,7 +42,7 @@ export const addSelectedClass = (row, column) => {
   );
 
   if (node) {
-    node.classList.add(selected);
+    node.dataset.focusActive = '1';
   }
 
   return true;

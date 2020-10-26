@@ -34,6 +34,7 @@ import {
   scrollToColumn,
   selectMovie,
   setSelectedMovie,
+  setItemPositions,
 } from "./ui";
 import {
   scrollRow,
@@ -53,6 +54,7 @@ import { SCRAPER_URL, TORRENTS_URL, API_URL, API_KEY } from "../config/index";
 const GRID_ROW = 0;
 const ITEM_PER_PAGE = 6;
 const getItemPosition = (index, perPage) => index % perPage;
+let collectionLoaded = 0;
 
 function* makeRequest({ payload: { action, id, params } }) {
   try {
@@ -60,10 +62,13 @@ function* makeRequest({ payload: { action, id, params } }) {
     const { results: data } = yield call(movieService[action], params);
     yield put(collectionDataSuccess({ id, data }));
   } catch (error) {
-    console.log("ERROR", error);
     yield put(collectionDataFailed({ id, error }));
   } finally {
     yield put(setCollectionDataIsFetching({ id, isFetching: false }));
+    collectionLoaded +=1;
+    if (collectionLoaded === 18) {
+      yield put(initMovies())
+    }
   }
 }
 
@@ -228,6 +233,7 @@ function* doInit() {
   try {
     const config = yield call(getConfig);
     yield put(configSuccess(config));
+    yield put(setItemPositions(config.frontend.collections.map(() => 0)));
   } catch (error) {
     // for dev
     yield put(

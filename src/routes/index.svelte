@@ -9,14 +9,21 @@
     BUTTON_LEFT,
     BUTTON_RIGHT,
   } from "../config/buttons";
-
-  onKeydown("Enter", () => {});
-  onKeydown(BUTTON_UP, () => {});
-  onKeydown(BUTTON_DOWN, () => {});
-  onKeydown(BUTTON_LEFT, () => {});
-  onKeydown(BUTTON_RIGHT, () => {});
+  import {
+    previousRow,
+    nextRow,
+    previousColumn,
+    nextColumn,
+  } from "../state/ui";
 
   const state = getTrackedState();
+  const dispatch = state.dispatch.bind(state);
+  onKeydown("Enter", () => {});
+  onKeydown(BUTTON_UP, () => dispatch(previousRow()));
+  onKeydown(BUTTON_DOWN, () => dispatch(nextRow()));
+  onKeydown(BUTTON_LEFT, () => dispatch(previousColumn()));
+  onKeydown(BUTTON_RIGHT, () => dispatch(nextColumn()));
+
   let collections = [];
   $: collections = getCollections($state);
 </script>

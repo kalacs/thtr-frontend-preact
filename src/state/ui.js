@@ -12,6 +12,7 @@ export const {
     scrollToColumn,
     scrollToRow,
     selectMovie,
+    setItemPositions,
   },
   selectors: { getSelectedRow, getSelectedColumn, getSelectedMovie },
 } = autodux({

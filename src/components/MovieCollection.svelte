@@ -39,7 +39,8 @@
   }
   .collection-tile :global(.title) {
     font-weight: bold;
-    font-size: 2em;
+    font-variant-caps: all-small-caps;
+    margin: 15px 0;
   }
   .collection-tile :global(.inner) {
     display: -ms-flexbox;
@@ -51,7 +52,7 @@
 
 <div data-focus-row={index} id={`collection-${id}`}>
   <div class="collection-tile">
-    <Typography variant="h2" class="title">{title}</Typography>
+    <Typography variant="h1" class="title">{title}</Typography>
     <MovieCollectionItem {movies} />
   </div>
 </div>
