@@ -38,8 +38,8 @@
     margin-bottom: 20px;
   }
   .collection-tile :global(.title) {
+    font-size: 1.4rem;
     font-weight: bold;
-    font-variant-caps: all-small-caps;
     margin: 15px 0;
   }
   .collection-tile :global(.inner) {
@@ -52,7 +52,7 @@
 
 <div data-focus-row={index} id={`collection-${id}`}>
   <div class="collection-tile">
-    <Typography variant="h1" class="title">{title}</Typography>
+    <Typography variant="h1" class="title">{title.toUpperCase()}</Typography>
     <MovieCollectionItem {movies} />
   </div>
 </div>

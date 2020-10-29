@@ -6,7 +6,7 @@
 </script>
 
 <style>
-  .collection-item {
+  :global(.collection-item) {
     position: relative;
     margin-right: 52px;
   }
@@ -21,6 +21,14 @@
     border: 2px solid red;
     border-radius: 10px;
     margin-right: 48px;
+  }
+
+  :global(.collection-item:nth-child(6n)) {
+    margin: 0;
+  }
+
+  :global(.collection-item[data-focus-active="1"]:nth-child(6n)) {
+    margin: 0 0 0 -4px;
   }
 </style>
 
