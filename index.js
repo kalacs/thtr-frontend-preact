@@ -12,6 +12,7 @@ module.exports = function (config) {
       rewrites: [
         { source: "/movies/:id", destination: `/index.html` },
         { source: "/movies", destination: `/index.html` },
+        { source: "/player", destination: `/index.html` },
       ],
     });
   };

@@ -8,9 +8,11 @@ import { useKeyPress } from "../../hooks/key-press";
 import { setStreamUrl } from "../../store/media";
 import { BUTTON_OK, BUTTON_GREEN } from "../../config";
 import { getConfig } from "../../store/general";
+import { useHistory } from "react-router-dom";
 
 const MovieItemPage = memo(({ match, dispatch, appConfig, ...props }) => {
   const { torrentsUrl, playMode } = appConfig;
+  const history = useHistory();
 
   useKeyPress(BUTTON_OK, noop, () => {
     // get selected version
@@ -42,6 +44,7 @@ const MovieItemPage = memo(({ match, dispatch, appConfig, ...props }) => {
           } else {
             startServer.then(toJson).then(({ url }) => {
               dispatch(setStreamUrl(`http://${url}`));
+              history.push("/player");
             });
           }
         });
