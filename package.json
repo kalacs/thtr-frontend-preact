@@ -9,8 +9,7 @@
     "serve": "node server.js",
     "dev": "preact watch",
     "lint": "eslint src",
-    "test": "jest",
-    "postinstall": "npm run build"
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": "preact",
